@@ -103,11 +103,11 @@ while MYRUN<MAXRUNS:
 REPLICATE=0
 MERGED=open('ms_allchroms_{}'.format(REPLICATE),'w')
 for sample in range(0,len(samples)):
-    
     for chromosome in range(1,23):
         file=open('ms_{}'.format(chromosome),'r')
         myline=0
         for line in file:
+            #print(sample,myline)
             if myline==sample:
                 line=line.strip()
                 MERGED.write(str(line))
