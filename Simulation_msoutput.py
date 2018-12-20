@@ -116,3 +116,5 @@ for sample in range(0,len(samples)):
         file.close()
     MERGED.write('\n')
 MERGED.close()
+
+## os.system('rm ms_*.')
