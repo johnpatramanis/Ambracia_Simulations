@@ -205,20 +205,24 @@ for REPS in range(0,reps):
         opener.close()
         counter+=1
     
-    for line in MS_MERGED:
-        
+
+    
+    MS_ALL_CHROMS=[]
+    for line in MS_MERGED:        
         line=line.strip().split()
-        counter=0
-        begin=0
-        for x in CHUNKS:
-            opener=open('50kb_{}_{}'.format(REPS,counter),'a')
-            #print(line[begin:x[0]])
-            #print(counter)
-            opener.write(''.join(line[0][begin:x[0]]))
+        MS_ALL_CHROMS.append(line[0])
+    print(len(MS_ALL_CHROMS))
+    print(type(MS_ALL_CHROMS))
+    counter=0
+    begin=0
+    for x in CHUNKS:
+        opener=open('50kb_{}_{}'.format(REPS,counter),'a')
+        for y in MS_ALL_CHROMS:                    
+            opener.write(''.join(y[begin:x[0]]))
             opener.write('\n')            
-            begin=x[0]+1
-            opener.close()
-            counter+=1
+        begin=x[0]+1
+        opener.close()
+        counter+=1
 
 
 
