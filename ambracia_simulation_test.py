@@ -65,6 +65,8 @@ for REPS in range(0,reps):
 
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
+    variantinfo=open('variants_info.txt','w')
+    variantinfo.write('CHROM\tVARIANT\tPOSITION\n')
     for j in range(1,23):
     
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
@@ -78,6 +80,7 @@ for REPS in range(0,reps):
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
             variants.append([var.position,var.index])
+            variantinfo.write('{}\t{}\t{}\n'.format(j,var.index,var.position))
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
@@ -126,6 +129,100 @@ for REPS in range(0,reps):
         
         
 ######################################################################################################################################################
+#Transform msprime format files to ms format
+#prepare for COMUS stats
+
+    MYRUN=j
+    MAXRUNS=MYRUN
+    MYRUN=1
+    while MYRUN<=MAXRUNS:
+        
+        msfile=open('ms_{}'.format(MYRUN),'w')
+        column=0
+        while column<len(samples):
+            msprimefile=open('ms_prime_{}'.format(MYRUN),'r')
+            person=[]
+            for line in msprimefile:
+                line=line.strip().split()[0]
+                person.append(str(line[column]))
+            msfile.write(''.join(person))
+            msfile.write('\n')
+            column+=1
+            msprimefile.close()
+        MYRUN+=1
+    variantinfo.close()
+
+######################################################
+
+#MERGING OF FILES ####
+
+
+    MERGED=open('ms_allchroms_{}'.format(REPS),'w')
+    for sample in range(0,len(samples)):
+        for chromosome in range(1,23):
+            file=open('ms_{}'.format(chromosome),'r')
+            myline=0
+            for line in file:
+                #print(sample,myline)
+                if myline==sample:
+                    line=line.strip()
+                    MERGED.write(str(line))
+                    break
+                myline+=1
+            file.close()
+        MERGED.write('\n')
+    MERGED.close()
+    
+## os.system('rm ms_*.')
+    
+#####################################################
+#Split each ms format chromosome file to 50kb chunks
+
+    SNPS=open('variants_info.txt','r')
+    firstLine = SNPS.readline()
+    CHUNKS=[]
+    begin=0
+    end=0
+    counter=0
+    chr=1
+    
+    for line in SNPS:
+        line=line.strip().split()
+        end=float(line[2])
+        if (end-begin>=500000.0) :
+            CHUNKS.append([counter,begin,end])
+            begin=float(line[2])
+        if chr!=int(line[0]):
+            begin=0
+            chr=int(line[0])
+            
+        counter+=1
+    SNPS.close()
+    MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
+    counter=0
+    for x in CHUNKS:
+        opener=open('50kb_{}_{}'.format(REPS,counter),'w')
+        opener.close()
+        counter+=1
+    
+    for line in MS_MERGED:
+        
+        line=line.strip().split()
+        counter=0
+        begin=0
+        for x in CHUNKS:
+            opener=open('50kb_{}_{}'.format(REPS,counter),'a')
+            #print(line[begin:x[0]])
+            #print(counter)
+            opener.write(''.join(line[0][begin:x[0]]))
+            opener.write('\n')            
+            begin=x[0]+1
+            opener.close()
+            counter+=1
+
+
+
+
 #Arrange the vcf files into one, fix labels , bed file , transform to eigen, calculate pca and f stats
         
     os.system('rm mynewvcf*.vcf')
@@ -260,51 +357,7 @@ for REPS in range(0,reps):
 
 
 ###############################################################################################################################################
-#Transform msprime format files to ms format
-#prepare for COMUS stats
-
-    MYRUN=j
-    MAXRUNS=MYRUN
-    MYRUN=1
-    while MYRUN<=MAXRUNS:
-        
-        msfile=open('ms_{}'.format(MYRUN),'w')
-        column=0
-        while column<len(samples):
-            msprimefile=open('ms_prime_{}'.format(MYRUN),'r')
-            person=[]
-            for line in msprimefile:
-                line=line.strip().split()[0]
-                person.append(str(line[column]))
-            msfile.write(''.join(person))
-            msfile.write('\n')
-            column+=1
-            msprimefile.close()
-        MYRUN+=1
-
-#####################################################
-#MERGING OF FILES ####
-
-
-    MERGED=open('ms_allchroms_{}'.format(REPS),'w')
-    for sample in range(0,len(samples)):
-        for chromosome in range(1,23):
-            file=open('ms_{}'.format(chromosome),'r')
-            myline=0
-            for line in file:
-                #print(sample,myline)
-                if myline==sample:
-                    line=line.strip()
-                    MERGED.write(str(line))
-                    break
-                myline+=1
-            file.close()
-        MERGED.write('\n')
-    MERGED.close()
-
-## os.system('rm ms_*.')
-    
-    
+  
     
     
     
