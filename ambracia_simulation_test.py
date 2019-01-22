@@ -199,11 +199,6 @@ for REPS in range(0,reps):
         counter+=1
     SNPS.close()
     MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
-    counter=0
-    for x in CHUNKS:
-        opener=open('50kb_{}_{}'.format(REPS,counter),'w')
-        opener.close()
-        counter+=1
     
 
     
@@ -215,14 +210,23 @@ for REPS in range(0,reps):
     print(type(MS_ALL_CHROMS))
     counter=0
     begin=0
+    opener=open('CHUNKED','w')
     for x in CHUNKS:
-        opener=open('50kb_{}_{}'.format(REPS,counter),'a')
+        opener.write("\n")
+        opener.write("//\n")
+        opener.write("segsites: {}\n".format(x[0]-begin))
+        opener.write("positions: ")
+        opener.write("\n")
+
         for y in MS_ALL_CHROMS:                    
             opener.write(''.join(y[begin:x[0]]))
             opener.write('\n')            
         begin=x[0]+1
-        opener.close()
+        
         counter+=1
+
+        
+    opener.close()
 
 
 
@@ -338,7 +342,7 @@ for REPS in range(0,reps):
     #SNP.close
     #newSNP.close
 
-    #os.system('mv newsimulation.snp simulation.snp')
+    os.system('mv newsimulation.snp simulation.snp')
     os.system('ls')
 
 
