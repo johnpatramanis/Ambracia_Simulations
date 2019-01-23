@@ -248,7 +248,7 @@ for REPS in range(0,reps):
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
             line[2]='rs{}'.format(snpcount)
-            line[1]=str(variants[snpcount])
+            line[1]=str(variants[snpcount][0])
             line.append('\n')
             line='\t'.join(line)
             snpcount+=1
@@ -361,8 +361,9 @@ for REPS in range(0,reps):
     
     os.system('rm simulation.*')
     os.system('rm simulation-temporary.*')
-
-
+    os.system('rm ms_prime_*')
+    for x in range(1,23):
+        os.system('rm ms_{}'.format(x))
 
 ###############################################################################################################################################
   
