@@ -5,6 +5,8 @@ import os
 import time
 import re
 
+start_time = time.time()
+
 
 N_OG=1000
 N_OUT=1000
@@ -114,9 +116,9 @@ for REPS in range(0,reps):
         wowzers.close()
 
 
+elapsed_time_1 = time.time() - start_time        
         
-        
-        
+print('Step 1 : {} '.format(elapsed_time_1))        
         
         
         
@@ -227,7 +229,8 @@ for REPS in range(0,reps):
 
         
     opener.close()
-
+    elapsed_time_2=time.time() - start_time
+    print('step 2 : {}'.format(elapsed_time_2))
 
 
 
@@ -365,6 +368,11 @@ for REPS in range(0,reps):
     for x in range(1,23):
         os.system('rm ms_{}'.format(x))
 
+    elapsed_time_3=time.time() - start_time
+    print('step 3 : {}'.format(elapsed_time_3))        
+        
+        
+        
 ###############################################################################################################################################
   
     
