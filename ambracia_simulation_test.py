@@ -217,6 +217,7 @@ for REPS in range(0,reps):
     begin=0
     opener=open('CHUNKED','w')
     opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
+    opener.write('\n')
     for x in CHUNKS:
         opener.write("\n")
         opener.write("//\n")
