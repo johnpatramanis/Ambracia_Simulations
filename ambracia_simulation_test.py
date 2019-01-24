@@ -183,6 +183,7 @@ for REPS in range(0,reps):
     SNPS=open('variants_info.txt','r')
     firstLine = SNPS.readline()
     CHUNKS=[]
+    POSITIONS=[]
     begin=0
     end=0
     counter=0
@@ -190,6 +191,7 @@ for REPS in range(0,reps):
     
     for line in SNPS:
         line=line.strip().split()
+        POSITIONS.append(line[2])
         end=float(line[2])
         if (end-begin>=500000.0) :
             CHUNKS.append([counter,begin,end])
