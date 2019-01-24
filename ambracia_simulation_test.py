@@ -208,11 +208,12 @@ for REPS in range(0,reps):
     for line in MS_MERGED:        
         line=line.strip().split()
         MS_ALL_CHROMS.append(line[0])
-    print(len(MS_ALL_CHROMS))
-    print(type(MS_ALL_CHROMS))
+    #print(len(MS_ALL_CHROMS))
+    #print(type(MS_ALL_CHROMS))
     counter=0
     begin=0
     opener=open('CHUNKED','w')
+    opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
     for x in CHUNKS:
         opener.write("\n")
         opener.write("//\n")
