@@ -116,9 +116,9 @@ for REPS in range(0,reps):
         wowzers.close()
 
 
-elapsed_time_1 = time.time() - start_time        
+    elapsed_time_1 = time.time() - start_time        
         
-print('Step 1 : {} '.format(elapsed_time_1))        
+    print('Step 1 : {} '.format(elapsed_time_1))        
         
         
         
