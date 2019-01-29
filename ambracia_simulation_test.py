@@ -119,7 +119,7 @@ for REPS in range(0,reps):
 
     elapsed_time_1 = time.time() - start_time        
         
-    print('Step 1 : {} '.format(elapsed_time_1))        
+    print('Step 1 : {} '.format(elapsed_time_1/60))        
         
         
         
@@ -237,7 +237,7 @@ for REPS in range(0,reps):
         
     opener.close()
     elapsed_time_2=time.time() - start_time
-    print('step 2 : {}'.format(elapsed_time_2))
+    print('step 2 : {}'.format(elapsed_time_2/60))
 
 
 
@@ -376,11 +376,11 @@ for REPS in range(0,reps):
         os.system('rm ms_{}'.format(x))
 
     elapsed_time_3=time.time() - start_time
-    print('step 3 : {}'.format(elapsed_time_3))        
+    print('step 3 : {}'.format(elapsed_time_3/60))        
     
     os.system('CoMuStats -input CHUNKED -npop 3 100 100 100 -ms > ms.stat')
     elapsed_time_4=time.time() - start_time
-    print('step 4 : {}'.format(elapsed_time_4)) 
+    print('step 4 : {}'.format(elapsed_time_4/60)) 
         
 ###############################################################################################################################################
   
