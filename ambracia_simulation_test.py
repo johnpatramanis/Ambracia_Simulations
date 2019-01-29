@@ -377,8 +377,10 @@ for REPS in range(0,reps):
 
     elapsed_time_3=time.time() - start_time
     print('step 3 : {}'.format(elapsed_time_3))        
-        
-        
+    
+    os.system('CoMuStats -input CHUNKED -npop 3 100 100 100 -ms > ms.stat')
+    elapsed_time_4=time.time() - start_time
+    print('step 4 : {}'.format(elapsed_time_4)) 
         
 ###############################################################################################################################################
   
@@ -405,4 +407,4 @@ for REPS in range(0,reps):
 
 ###############################################################################################################################################
 print(np.mean(totalf3))
-os.system('CoMuStats -input CHUNKED -npop 3 100 100 100 -ms > ms.stat')
+
