@@ -149,6 +149,8 @@ for REPS in range(0,reps):
     for loop in variantinfo:
         variantinformation.write(loop)
     
+    variantinformation.close()
+
     elapsed_time_1 = time.time() - start_time        
         
     print('Step 1 : {} '.format(elapsed_time_1/60))        
@@ -179,7 +181,6 @@ for REPS in range(0,reps):
             column+=1
             msprimefile.close()
         MYRUN+=1
-    variantinfo.close()
 
 ######################################################
 
