@@ -9,62 +9,95 @@ import random
 start_time = time.time()
 
 
-N_OG=1000
-N_OUT=1000
-N_AB=1000
-N_A0=1000
-N_B0=1000
-
-r_A=0.000
-r_B=0.000
-
-generation_time = 25
-
-T_split_OUT_AB=10000/generation_time
-T_split_AB=5000/generation_time
-
-
-
-
-N_A=N_A0 / math.exp(-r_A * T_split_AB)
-N_B=N_B0 / math.exp(-r_B * T_split_AB)
-
-
-
-population_configurations = [
-    msprime.PopulationConfiguration(initial_size=N_OUT),
-    msprime.PopulationConfiguration(initial_size=N_A, growth_rate=r_A),
-    msprime.PopulationConfiguration(initial_size=N_B, growth_rate=r_B)
-]
-
-#migration of AB to OUT
-m_OUT_AB=0.001
-
-migration_matrix = [
-    [0,0.0001,0.0001],
-    [0.0001,0,0.0001],
-    [0.0001,0.0001,0]]
-
-samples=[msprime.Sample(0,0)]*100 + [msprime.Sample(1,0)]*100 + [msprime.Sample(2,0)] *100
-
-
-demographic_events = [
-    # A and B merge
-    msprime.MassMigration(time=T_split_AB, source=2, destination=1, proportion=1.0),
-    msprime.MigrationRateChange(time=T_split_AB, rate=0),
-    msprime.MigrationRateChange(time=T_split_AB, rate=m_OUT_AB, matrix_index=(0, 1)),
-    msprime.MigrationRateChange(time=T_split_AB, rate=m_OUT_AB, matrix_index=(1, 0)),
-    msprime.PopulationParametersChange(time=T_split_AB, initial_size=N_AB, growth_rate=0, population_id=1),
-    # Population AB merges into OUT
-    msprime.MassMigration(time=T_split_OUT_AB, source=1, destination=0, proportion=1.0),
-    # Size changes to N_A at T_AF
-    msprime.PopulationParametersChange(time=T_split_OUT_AB, initial_size=N_OUT, population_id=0)
-]
-
-
 reps=1
-totalf3=[]
 for REPS in range(0,reps):
+
+    totalf3=[]
+    
+
+    N_OG=1000
+    N_OUT=1000
+    N_AB=1000
+    N_A0=1000
+    N_B0=1000
+
+    r_A=0.000
+    r_B=0.000
+
+    generation_time = 25
+
+    T_split_OUT_AB=10000/generation_time
+    T_split_AB=5000/generation_time
+
+
+
+
+    N_A=N_A0 / math.exp(-r_A * T_split_AB)
+    N_B=N_B0 / math.exp(-r_B * T_split_AB)
+
+
+
+    population_configurations = [
+        msprime.PopulationConfiguration(initial_size=N_OUT),
+        msprime.PopulationConfiguration(initial_size=N_A, growth_rate=r_A),
+        msprime.PopulationConfiguration(initial_size=N_B, growth_rate=r_B)
+    ]
+
+    #migration of AB to OUT
+    m_OUT_AB=0.001
+
+    migration_matrix = [
+        [0,0.0001,0.0001],
+        [0.0001,0,0.0001],
+        [0.0001,0.0001,0]]
+
+    samples=[msprime.Sample(0,0)]*100 + [msprime.Sample(1,0)]*100 + [msprime.Sample(2,0)] *100
+
+
+    demographic_events = [
+        # A and B merge
+        msprime.MassMigration(time=T_split_AB, source=2, destination=1, proportion=1.0),
+        msprime.MigrationRateChange(time=T_split_AB, rate=0),
+        msprime.MigrationRateChange(time=T_split_AB, rate=m_OUT_AB, matrix_index=(0, 1)),
+        msprime.MigrationRateChange(time=T_split_AB, rate=m_OUT_AB, matrix_index=(1, 0)),
+        msprime.PopulationParametersChange(time=T_split_AB, initial_size=N_AB, growth_rate=0, population_id=1),
+        # Population AB merges into OUT
+        msprime.MassMigration(time=T_split_OUT_AB, source=1, destination=0, proportion=1.0),
+        # Size changes to N_A at T_AF
+        msprime.PopulationParametersChange(time=T_split_OUT_AB, initial_size=N_OUT, population_id=0)
+    ]
+
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
 
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
@@ -215,7 +248,7 @@ for REPS in range(0,reps):
     #print(type(MS_ALL_CHROMS))
     counter=0
     begin=0
-    opener=open('CHUNKED','w')
+    opener=open('CHUNKED_{}'.format(REPS),'w')
     opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
     opener.write('\n')
     for x in CHUNKS:
@@ -357,8 +390,11 @@ for REPS in range(0,reps):
 
 
 
-    os.system('qp3Pop -p 3popparfile >f3stat')
-    f3file=open('f3stat','r')
+    os.system('qp3Pop -p 3popparfile >f3stat_{}'.format(REPS))
+    
+    
+    f3file=open('f3stat_{}'.format(REPS),'r')
+    
     for line in f3file:
         line=line.strip().split()
         #print(line)
@@ -378,7 +414,7 @@ for REPS in range(0,reps):
     elapsed_time_3=time.time() - start_time
     print('step 3 : {}'.format(elapsed_time_3/60))        
     
-    os.system('CoMuStats -input CHUNKED -npop 3 100 100 100 -ms > ms.stat')
+    os.system('CoMuStats -input CHUNKED_{} -npop 3 100 100 100 -ms > COMUSTATS_{}'.format(REPS,REPS))
     elapsed_time_4=time.time() - start_time
     print('step 4 : {}'.format(elapsed_time_4/60)) 
         
