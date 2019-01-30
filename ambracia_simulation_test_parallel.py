@@ -83,7 +83,7 @@ for REPS in range(0,reps):
     variantinfo=[]
     variants=[]
     
-    def SIMULATE(argument):
+    def SIMULATE(argument,samples,population_configurations,migration_matrix,demographic_events):
         j=int(argument)
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
         dd = msprime.simulate(samples=samples,
@@ -132,7 +132,7 @@ for REPS in range(0,reps):
     if __name__ == '__main__':
         processes=[]
         for loop in range(1,23):
-            p=Process(target=SIMULATE,args=(loop,))
+            p=Process(target=SIMULATE,args=(loop,samples,population_configurations,migration_matrix,demographic_events,))
             processes.append(p)
             p.start()
     
@@ -153,7 +153,7 @@ for REPS in range(0,reps):
     elapsed_time_1 = time.time() - start_time        
         
     print('Step 1 : {} '.format(elapsed_time_1/60))        
-        
+    
         
         
         
