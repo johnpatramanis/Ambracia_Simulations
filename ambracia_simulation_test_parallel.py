@@ -81,7 +81,7 @@ for REPS in range(0,reps):
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
     variantinfo=[]
-    
+    variants=[]
     
     def SIMULATE(argument):
         j=int(argument)
@@ -90,7 +90,6 @@ for REPS in range(0,reps):
             population_configurations=population_configurations,
             migration_matrix=migration_matrix,mutation_rate=1e-8,
             demographic_events=demographic_events,recombination_map=recomb_map)
-        variants=[]
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
             variants.append([var.position,var.index])
@@ -415,25 +414,6 @@ for REPS in range(0,reps):
 ###############################################################################################################################################
   
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-    
-
-
 
 ###############################################################################################################################################
 print(np.mean(totalf3))
