@@ -103,6 +103,7 @@ for REPS in range(0,reps):
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
     variantinfo=open('variants_info.txt','w')
     variantinfo.write('CHROM\tVARIANT\tPOSITION\n')
+    variants=[]
     for j in range(1,23):
     
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
@@ -112,7 +113,7 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
 
         #for the ms file
-        variants=[]
+        
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
             variants.append([var.position,var.index])
