@@ -92,7 +92,7 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
-            variants.append([var.position,var.index])
+            variants.append([var.index,var.position])
             variantinfo.append('{}\t{}\t{}\n'.format(j,var.index,var.position))
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
@@ -280,11 +280,13 @@ for REPS in range(0,reps):
     newVCF=open('newtotal_chroms.vcf','w')
 
     snpcount=0
+    
+    variants=sorted(variants)
     for line in VCF:
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
             line[2]='rs{}'.format(snpcount)
-            line[1]=str(variants[snpcount][0])
+            line[1]=str(variants[snpcount][1])
             line.append('\n')
             line='\t'.join(line)
             snpcount+=1
