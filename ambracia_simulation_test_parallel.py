@@ -124,7 +124,7 @@ for REPS in range(0,reps):
             wowzers.write("\n")
         wow.close()
         
-        return j
+        return j,variants,variantinfo
     
     
     
@@ -142,6 +142,7 @@ for REPS in range(0,reps):
     
 
     
+    print(len(variants),len(variantinfo))
     variantinfo=sorted(variantinfo)
     variantinformation=open('variants_info.txt','w')
     variantinformation.write('CHROM\tVARIANT\tPOSITION\n')
