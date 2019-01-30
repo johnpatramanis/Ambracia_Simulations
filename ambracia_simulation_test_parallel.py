@@ -78,41 +78,20 @@ for REPS in range(0,reps):
 
 
 
-
-
-
-
-
-
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
     variantinfo=[]
     
     
-    def SIMULATE(j):
+    def SIMULATE(argument):
+        j=int(argument)
+        print('WoW')
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
         dd = msprime.simulate(samples=samples,
             population_configurations=population_configurations,
             migration_matrix=migration_matrix,mutation_rate=1e-8,
             demographic_events=demographic_events,recombination_map=recomb_map)
-        
+        print('WOW')
         variants=[]
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
@@ -147,25 +126,25 @@ for REPS in range(0,reps):
             wowzers.write("\t".join(line))
             wowzers.write("\n")
         wow.close()
-    
+        
+        return j
     
     
     
     
     if __name__ == '__main__':
+        processes=[]
         for loop in range(1,23):
+            print('wOw')
             p=Process(target=SIMULATE,args=(loop,))
+            processes.append(p)
             p.start()
     
             
         for p in processes:
             p.join()
     
-    
-    
-    
-    
-    
+
     
     variantinfo=sorted(variantinfo)
     variantinformation=open('variants_info.txt','w')
@@ -185,7 +164,7 @@ for REPS in range(0,reps):
 #Transform msprime format files to ms format
 #prepare for COMUS stats
 
-    MYRUN=j
+    MYRUN=22
     MAXRUNS=MYRUN
     MYRUN=1
     while MYRUN<=MAXRUNS:
