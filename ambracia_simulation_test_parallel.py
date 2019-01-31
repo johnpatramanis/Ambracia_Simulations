@@ -127,10 +127,10 @@ for REPS in range(0,reps):
     
     
     
-    L=[[][]]
+    L=[[],[]]
     if __name__ == '__main__':
         with Manager() as manager:
-            L=manager.list(range(2))
+            L=manager.list(L)
             processes=[]
             for loop in range(1,23):
                 p=Process(target=SIMULATE,args=(L,loop,samples,population_configurations,migration_matrix,demographic_events,))
