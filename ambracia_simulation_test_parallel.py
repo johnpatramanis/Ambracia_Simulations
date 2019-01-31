@@ -80,10 +80,9 @@ for REPS in range(0,reps):
 
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
-    variantinfo=[]
-    variants=[]
+
     
-    def SIMULATE(variantinfo,variants,argument,samples,population_configurations,migration_matrix,demographic_events):
+    def SIMULATE(L,argument,samples,population_configurations,migration_matrix,demographic_events):
         j=int(argument)
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
         dd = msprime.simulate(samples=samples,
@@ -92,8 +91,8 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
-            variants.append([var.index,var.position])
-            variantinfo.append('{}\t{}\t{}\n'.format(j,var.index,var.position))
+            L[0].append([var.index,var.position])
+            L[1].append('{}\t{}\t{}\n'.format(j,var.index,var.position))
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
@@ -128,14 +127,13 @@ for REPS in range(0,reps):
     
     
     
-    
+    L=[[][]]
     if __name__ == '__main__':
         with Manager() as manager:
-            variants=manager.list()
-            variantinfo=manager.list()
+            L=manager.list(range(2))
             processes=[]
             for loop in range(1,23):
-                p=Process(target=SIMULATE,args=(variantinfo,variants,loop,samples,population_configurations,migration_matrix,demographic_events,))
+                p=Process(target=SIMULATE,args=(L,loop,samples,population_configurations,migration_matrix,demographic_events,))
                 processes.append(p)
                 
                 p.start()
@@ -143,8 +141,8 @@ for REPS in range(0,reps):
                 
             for p in processes:
                 p.join()
-        variantinfo=list(variantinfo)
-        variants=list(variants)
+        variantinfo=L[0]
+        variants=L[1]
 
     
     print(len(variants),len(variantinfo))
