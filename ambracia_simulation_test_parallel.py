@@ -91,8 +91,8 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
-            L[0].append([var.index,var.position])
-            L[1].append('{}\t{}\t{}\n'.format(j,var.index,var.position))
+            L.append([var.index,var.position])
+            #L[1].append('{}\t{}\t{}\n'.format(j,var.index,var.position))
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
@@ -127,7 +127,7 @@ for REPS in range(0,reps):
     
     
     
-    L=[[],[]]
+    L=[]
     if __name__ == '__main__':
         with Manager() as manager:
             L=manager.list(L)
@@ -143,10 +143,10 @@ for REPS in range(0,reps):
                 p.join()
             print(L,'1')
         print(L,'2')
-        variantinfo=L[0]
-        variants=L[1]
+        #variantinfo=L[0]
+        variants=L
 
-    
+    variantinfo=variants
     print(len(variants),len(variantinfo))
     variantinfo=sorted(variantinfo)
     variantinformation=open('variants_info.txt','w')
