@@ -80,7 +80,8 @@ for REPS in range(0,reps):
 
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
-
+    variantinfo=[]
+    variants=[]
     
     def SIMULATE(variantinfo,variants,argument,samples,population_configurations,migration_matrix,demographic_events):
         j=int(argument)
@@ -142,7 +143,8 @@ for REPS in range(0,reps):
                 
             for p in processes:
                 p.join()
-    
+        variantinfo=list(variantinfo)
+        variants=list(variants)
 
     
     print(len(variants),len(variantinfo))
