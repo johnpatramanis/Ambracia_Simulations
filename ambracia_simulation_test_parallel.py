@@ -141,10 +141,10 @@ for REPS in range(0,reps):
                 
             for p in processes:
                 p.join()
-            print(L,'1')
-        print(L,'2')
+            print(len(L),'1')
+            variants=L
         #variantinfo=L[0]
-        variants=L
+        #variants=L
 
     variantinfo=variants
     print(len(variants),len(variantinfo))
