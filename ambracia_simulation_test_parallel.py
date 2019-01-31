@@ -123,7 +123,7 @@ for REPS in range(0,reps):
             wowzers.write("\n")
         wow.close()
         
-        return j
+        return j,L
     
     
     
@@ -141,6 +141,8 @@ for REPS in range(0,reps):
                 
             for p in processes:
                 p.join()
+            print(L,'1')
+        print(L,'2')
         variantinfo=L[0]
         variants=L[1]
 
