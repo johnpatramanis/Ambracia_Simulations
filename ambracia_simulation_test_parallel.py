@@ -5,7 +5,7 @@ import os
 import time
 import re
 import random
-from multiprocessing import Process
+from multiprocessing import Process,Manager
 
 
 start_time = time.time()
@@ -83,7 +83,7 @@ for REPS in range(0,reps):
     variantinfo=[]
     variants=[]
     
-    def SIMULATE(argument,samples,population_configurations,migration_matrix,demographic_events):
+    def SIMULATE(variantinfo,variants,argument,samples,population_configurations,migration_matrix,demographic_events):
         j=int(argument)
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
         dd = msprime.simulate(samples=samples,
@@ -124,21 +124,25 @@ for REPS in range(0,reps):
             wowzers.write("\n")
         wow.close()
         
-        return j,variants,variantinfo
+        return j
     
     
     
     
     if __name__ == '__main__':
-        processes=[]
-        for loop in range(1,23):
-            p=Process(target=SIMULATE,args=(loop,samples,population_configurations,migration_matrix,demographic_events,))
-            processes.append(p)
-            p.start()
-    
-            
-        for p in processes:
-            p.join()
+        with Manager() as manager:
+            variants=manager.list()
+            variantinfo=manager.list()
+            processes=[]
+            for loop in range(1,23):
+                p=Process(target=SIMULATE,args=(variantinfo,variants,loop,samples,population_configurations,migration_matrix,demographic_events,))
+                processes.append(p)
+                
+                p.start()
+        
+                
+            for p in processes:
+                p.join()
     
 
     
