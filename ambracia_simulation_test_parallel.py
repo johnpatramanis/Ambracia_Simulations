@@ -57,7 +57,12 @@ for REPS in range(0,reps):
         [0.0001,0,0.0001],
         [0.0001,0.0001,0]]
 
-    samples=[msprime.Sample(0,0)]*100 + [msprime.Sample(1,0)]*100 + [msprime.Sample(2,0)] *100
+N1=20
+N2=20
+N3=20
+        
+        
+    samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
 
     demographic_events = [
@@ -104,7 +109,7 @@ for REPS in range(0,reps):
         dd.write_vcf(wow,2,str(j))
         wow.close()
         
-        population_labels= ["africa"]*50 + ["asia"]*50 + ["europe"]*50
+        population_labels= ["Locals"]*N1/2 + ["Metropolis"]*N2/2 + ["Apoikia"]*N3/2
         d=0
         newlabels=[]
         for i in range(0,len(population_labels)):
