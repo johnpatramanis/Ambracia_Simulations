@@ -107,7 +107,7 @@ for REPS in range(0,reps):
         dd.write_vcf(wow,2,str(j))
         wow.close()
         
-        population_labels= ["Locals"]*N1/2 + ["Metropolis"]*N2/2 + ["Apoikia"]*N3/2
+        population_labels= ["Locals"]*(N1/2) + ["Metropolis"]*(N2/2) + ["Apoikia"]*(N3/2)
         d=0
         newlabels=[]
         for i in range(0,len(population_labels)):
