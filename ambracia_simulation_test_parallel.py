@@ -17,7 +17,10 @@ for REPS in range(0,reps):
 
     totalf3=[]
     
-
+##############################################################################################################################################
+#Simulation Parameters
+    
+    
     N_OG=1000
     N_OUT=1000
     N_AB=1000
@@ -92,7 +95,7 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
-            L.append([var.index,var.position])
+            L.append([j,var.index,var.position])
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
@@ -292,7 +295,7 @@ for REPS in range(0,reps):
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
             line[2]='rs{}'.format(snpcount)
-            line[1]=str(variants[snpcount][1])
+            line[1]=str(variants[snpcount][2])
             line.append('\n')
             line='\t'.join(line)
             snpcount+=1
