@@ -93,7 +93,6 @@ for REPS in range(0,reps):
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
             L.append([var.index,var.position])
-            #L[1].append('{}\t{}\t{}\n'.format(j,var.index,var.position))
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
@@ -147,9 +146,9 @@ for REPS in range(0,reps):
             variants=sorted(list(L))
 
 
-    variantinfo=variants
+    variantinfo=['{}\t{}\t{}\n'.format(x[0],x[1],x[2])for x in variants]
     print(len(variants),len(variantinfo))
-    variantinfo=sorted(variantinfo)
+
     variantinformation=open('variants_info.txt','w')
     variantinformation.write('CHROM\tVARIANT\tPOSITION\n')
     for loop in variantinfo:
