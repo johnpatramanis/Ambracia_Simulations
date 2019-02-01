@@ -57,11 +57,9 @@ for REPS in range(0,reps):
         [0.0001,0,0.0001],
         [0.0001,0.0001,0]]
 
-N1=20
-N2=20
-N3=20
-        
-        
+    N1=20
+    N2=20
+    N3=20
     samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
 
