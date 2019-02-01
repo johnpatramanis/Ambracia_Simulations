@@ -107,7 +107,7 @@ for REPS in range(0,reps):
         dd.write_vcf(wow,2,str(j))
         wow.close()
         
-        population_labels= ["Locals"]*int(N1/2) + ["Metropolis"]*int(N2/2) + ["Apoikia"]*int(N3/2)
+        population_labels= ["locals"]*int(N1/2) + ["metropolis"]*int(N2/2) + ["apoikia"]*int(N3/2)
         d=0
         newlabels=[]
         for i in range(0,len(population_labels)):
@@ -360,7 +360,7 @@ for REPS in range(0,reps):
     os.system('mv newsimulation.ind simulation.ind')
 
     Pop3=open('qp3Poplist','w')
-    Pop3.write('africa europe asia')
+    Pop3.write('locals metropolis apoikia')
     Pop3.close()
 
     Parfilepop=open('3popparfile','w')
