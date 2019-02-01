@@ -421,7 +421,7 @@ for REPS in range(0,reps):
     elapsed_time_3=time.time() - start_time
     print('step 3 : {}'.format(elapsed_time_3/60))        
     
-    os.system('CoMuStats -input CHUNKED_{} -npop 3 100 100 100 -ms > COMUSTATS_{}'.format(REPS,REPS))
+    os.system('CoMuStats -input CHUNKED_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
     elapsed_time_4=time.time() - start_time
     print('step 4 : {}'.format(elapsed_time_4/60)) 
         
