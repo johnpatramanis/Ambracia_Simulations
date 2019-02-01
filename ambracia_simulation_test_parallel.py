@@ -12,7 +12,7 @@ from multiprocessing import Process,Manager
 start_time = time.time()
 
 
-reps=1
+reps=100
 for REPS in range(0,reps):
 
     totalf3=[]
@@ -20,7 +20,7 @@ for REPS in range(0,reps):
 ##############################################################################################################################################
 #Simulation Parameters
     
-    
+    parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
     N_OG=1000
     N_OUT=1000
     N_AB=1000
