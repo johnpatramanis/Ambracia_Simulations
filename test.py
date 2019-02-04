@@ -27,6 +27,8 @@ for REPS in range(0,reps):
     
     T_COLONIZATION=700/generation_time
     
+    generation_time = 20
+    
     COLONIZER=random.randint(0,1)
     if COLONIZER==0:
         N_initial_colony=random.randint(0,N_locals)
@@ -44,7 +46,7 @@ for REPS in range(0,reps):
     
     N_finale_colony=N_initial_colony / math.exp(-r_colony * T_COLONIZATION)
     
-    generation_time = 20
+
 
 
 
