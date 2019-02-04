@@ -21,8 +21,12 @@ for REPS in range(0,reps):
 #Simulation Parameters
     
     parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
+    
     N_locals=random.randint(0,10000)
     N_metropolis=random.randint(0,10000)
+    
+    T_COLONIZATION=700/generation_time
+    
     COLONIZER=random.randint(0,1)
     if COLONIZER==0:
         N_initial_colony=random.randint(0,N_locals)
@@ -43,7 +47,7 @@ for REPS in range(0,reps):
     generation_time = 20
 
 
-    T_COLONIZATION=700/generation_time
+
 
 
 
