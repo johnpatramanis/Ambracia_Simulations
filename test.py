@@ -32,8 +32,8 @@ for REPS in range(0,reps):
 
     generation_time = 20
 
-    #T_split_OUT_AB=10000/generation_time
-    #T_split_AB=5000/generation_time
+    T_split_OUT_AB=10000/generation_time
+    T_split_AB=5000/generation_time
     T_COLONIZATION=700/generation_time
     COLONIZER=random.randint(0,1)
 
