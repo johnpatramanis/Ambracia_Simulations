@@ -79,9 +79,9 @@ for REPS in range(0,reps):
     
     ]
 
-    parametersfile.write('\t'.join([COLONIZER,N_locals,N_metropolis,N_initial_colony,N_finale_colony,r_locals,r_metropolis,r_colony]))
+    parametersfile.write('\t'.join([str(x) for x in [COLONIZER,N_locals,N_metropolis,N_initial_colony,N_finale_colony,r_locals,r_metropolis,r_colony]]))
     parametersfile.write('\n')
-    parametersfile.write('\t'.join(migration_matrix))
+    parametersfile.write('\t'.join([str(x) for x in migration_matrix]))
     
     
     
