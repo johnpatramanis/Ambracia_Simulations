@@ -46,15 +46,8 @@ for REPS in range(0,reps):
     
     N_finale_colony=N_initial_colony / math.exp(-r_colony * T_COLONIZATION)
     
-
-
-
-
-
-
-
+    ###############################################################################################################################
     
-
 
 
     population_configurations = [
@@ -86,7 +79,9 @@ for REPS in range(0,reps):
     
     ]
 
-    
+    parametersfile.write('\t'.join([COLONIZER,N_locals,N_metropolis,N_initial_colony,N_finale_colony,r_locals,r_metropolis,r_colony]))
+    parametersfile.write('\n')
+    parametersfile.write('\t'.join(migration_matrix))
     
     
     
