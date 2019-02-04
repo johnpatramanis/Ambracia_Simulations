@@ -5,18 +5,22 @@ import os
 import time
 import re
 import random
-from multiprocessing import Process
+import sys
+from multiprocessing import Process,Manager
 
 
 start_time = time.time()
 
 
-reps=1
+reps=100
 for REPS in range(0,reps):
 
     totalf3=[]
     
-
+##############################################################################################################################################
+#Simulation Parameters
+    
+    parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
     N_OG=1000
     N_OUT=1000
     N_AB=1000
@@ -53,20 +57,16 @@ for REPS in range(0,reps):
         [0.0001,0,0.0001],
         [0.0001,0.0001,0]]
 
-    samples=[msprime.Sample(0,0)]*100 + [msprime.Sample(1,0)]*100 + [msprime.Sample(2,0)] *100
+    N1=20
+    N2=20
+    N3=20
+    samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
 
     demographic_events = [
         # A and B merge
-        msprime.MassMigration(time=T_split_AB, source=2, destination=1, proportion=1.0),
-        msprime.MigrationRateChange(time=T_split_AB, rate=0),
-        msprime.MigrationRateChange(time=T_split_AB, rate=m_OUT_AB, matrix_index=(0, 1)),
-        msprime.MigrationRateChange(time=T_split_AB, rate=m_OUT_AB, matrix_index=(1, 0)),
-        msprime.PopulationParametersChange(time=T_split_AB, initial_size=N_AB, growth_rate=0, population_id=1),
         # Population AB merges into OUT
-        msprime.MassMigration(time=T_split_OUT_AB, source=1, destination=0, proportion=1.0),
         # Size changes to N_A at T_AF
-        msprime.PopulationParametersChange(time=T_split_OUT_AB, initial_size=N_OUT, population_id=0)
     ]
 
     
@@ -80,10 +80,9 @@ for REPS in range(0,reps):
 
 ######################################################################################################################################################
 #RUN the simulation and output genotypes in vcfs and ms format files, one for each chrom 
-    variantinfo=[]
-    variants=[]
+
     
-    def SIMULATE(argument,samples,population_configurations,migration_matrix,demographic_events):
+    def SIMULATE(L,argument,samples,population_configurations,migration_matrix,demographic_events):
         j=int(argument)
         recomb_map=msprime.RecombinationMap.read_hapmap('genetic_map_GRCh37_chr{}.txt'.format(j))
         dd = msprime.simulate(samples=samples,
@@ -92,8 +91,7 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
-            variants.append([var.index,var.position])
-            variantinfo.append('{}\t{}\t{}\n'.format(j,var.index,var.position))
+            L.append([j,var.index,var.position])
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
@@ -102,7 +100,7 @@ for REPS in range(0,reps):
         dd.write_vcf(wow,2,str(j))
         wow.close()
         
-        population_labels= ["africa"]*50 + ["asia"]*50 + ["europe"]*50
+        population_labels= ["locals"]*int(N1/2) + ["metropolis"]*int(N2/2) + ["apoikia"]*int(N3/2)
         d=0
         newlabels=[]
         for i in range(0,len(population_labels)):
@@ -124,25 +122,32 @@ for REPS in range(0,reps):
             wowzers.write("\n")
         wow.close()
         
-        return j
+        return j,L
     
     
     
-    
+    L=[]
     if __name__ == '__main__':
-        processes=[]
-        for loop in range(1,23):
-            p=Process(target=SIMULATE,args=(loop,samples,population_configurations,migration_matrix,demographic_events,))
-            processes.append(p)
-            p.start()
-    
-            
-        for p in processes:
-            p.join()
-    
+        with Manager() as manager:
+            L=manager.list(L)
+            processes=[]
+            for loop in range(1,23):
+                p=Process(target=SIMULATE,args=(L,loop,samples,population_configurations,migration_matrix,demographic_events,))
+                processes.append(p)
+                
+                p.start()
+        
+                
+            for p in processes:
+                p.join()
+            #print(len(L),'1')
+            sys.stdout.flush()
+            variants=sorted(list(L))
 
-    
-    variantinfo=sorted(variantinfo)
+
+    variantinfo=['{}\t{}\t{}\n'.format(x[0],x[1],x[2])for x in variants]
+    print(len(variants),len(variantinfo))
+
     variantinformation=open('variants_info.txt','w')
     variantinformation.write('CHROM\tVARIANT\tPOSITION\n')
     for loop in variantinfo:
@@ -286,7 +291,7 @@ for REPS in range(0,reps):
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
             line[2]='rs{}'.format(snpcount)
-            line[1]=str(variants[snpcount][1])
+            line[1]=str(variants[snpcount][2])
             line.append('\n')
             line='\t'.join(line)
             snpcount+=1
@@ -348,7 +353,7 @@ for REPS in range(0,reps):
     os.system('mv newsimulation.ind simulation.ind')
 
     Pop3=open('qp3Poplist','w')
-    Pop3.write('africa europe asia')
+    Pop3.write('locals metropolis apoikia')
     Pop3.close()
 
     Parfilepop=open('3popparfile','w')
@@ -409,7 +414,7 @@ for REPS in range(0,reps):
     elapsed_time_3=time.time() - start_time
     print('step 3 : {}'.format(elapsed_time_3/60))        
     
-    os.system('CoMuStats -input CHUNKED_{} -npop 3 100 100 100 -ms > COMUSTATS_{}'.format(REPS,REPS))
+    os.system('CoMuStats -input CHUNKED_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
     elapsed_time_4=time.time() - start_time
     print('step 4 : {}'.format(elapsed_time_4/60)) 
         
