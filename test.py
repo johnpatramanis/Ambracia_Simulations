@@ -30,12 +30,12 @@ for REPS in range(0,reps):
     r_A=0.000
     r_B=0.000
 
-    generation_time = 25
+    generation_time = 20
 
-    T_split_OUT_AB=10000/generation_time
-    T_split_AB=5000/generation_time
-
-
+    #T_split_OUT_AB=10000/generation_time
+    #T_split_AB=5000/generation_time
+    T_COLONIZATION=700/generation_time
+    COLONIZER=random.randint(0,1)
 
 
     N_A=N_A0 / math.exp(-r_A * T_split_AB)
@@ -62,11 +62,15 @@ for REPS in range(0,reps):
     N3=20
     samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
-
     demographic_events = [
-        # A and B merge
-        # Population AB merges into OUT
-        # Size changes to N_A at T_AF
+    msprime.MassMigration(time=T_COLONIZATION, source=2, destination=COLONIZER, proportion=1.0),
+    msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(0, 2)),
+    msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 0)),
+    msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(1, 2)),
+    msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 1)),
+    
+    
+    
     ]
 
     
