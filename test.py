@@ -21,41 +21,46 @@ for REPS in range(0,reps):
 #Simulation Parameters
     
     parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
-    N_OG=1000
-    N_OUT=1000
-    N_AB=1000
-    N_A0=1000
-    N_B0=1000
+    N_locals=random.randint(0,10000)
+    N_metropolis=random.randint(0,10000)
+    COLONIZER=random.randint(0,1)
+    if COLONIZER==0:
+        N_initial_colony=random.randint(0,N_locals)
+    if COLONIZER==1:
+        N_initial_colony=random.randint(0,N_metropolis)
+    
 
-    r_A=0.000
-    r_B=0.000
 
+    r_locals=round(random.uniform(0,1.0), 4)
+    r_metropolis=round(random.uniform(0,1.0), 4)
+    while N_initial_colony / math.exp(-r_colony * T_COLONIZATION)>N_metropolis:
+        r_colony=round(random.uniform(0,1.0), 4)
+    
+    N_finale_colony=N_initial_colony / math.exp(-r_colony * T_COLONIZATION)
+    
     generation_time = 20
 
-    T_split_OUT_AB=10000/generation_time
-    T_split_AB=5000/generation_time
+
     T_COLONIZATION=700/generation_time
-    COLONIZER=random.randint(0,1)
 
 
-    N_A=N_A0 / math.exp(-r_A * T_split_AB)
-    N_B=N_B0 / math.exp(-r_B * T_split_AB)
+
+    
 
 
 
     population_configurations = [
-        msprime.PopulationConfiguration(initial_size=N_OUT),
-        msprime.PopulationConfiguration(initial_size=N_A, growth_rate=r_A),
-        msprime.PopulationConfiguration(initial_size=N_B, growth_rate=r_B)
+        msprime.PopulationConfiguration(initial_size=N_locals,growth_rate=r_locals),
+        msprime.PopulationConfiguration(initial_size=N_metropolis, growth_rate=r_metropolis),
+        msprime.PopulationConfiguration(initial_size=N_finale_colony, growth_rate=r_colony)
     ]
 
-    #migration of AB to OUT
-    m_OUT_AB=0.001
+
 
     migration_matrix = [
-        [0,0.0001,0.0001],
-        [0.0001,0,0.0001],
-        [0.0001,0.0001,0]]
+        [0,round(random.uniform(0,1.0), 6),round(random.uniform(0,1.0), 6)],
+        [round(random.uniform(0,1.0), 6),0,round(random.uniform(0,1.0), 6)],
+        [round(random.uniform(0,1.0), 6),round(random.uniform(0,1.0), 6),0]]
 
     N1=20
     N2=20
@@ -63,12 +68,12 @@ for REPS in range(0,reps):
     samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
     demographic_events = [
-    msprime.MassMigration(time=T_COLONIZATION, source=2, destination=COLONIZER, proportion=1.0),
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(0, 2)),
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 0)),
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(1, 2)),
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 1)),
-    
+    msprime.PopulationParametersChange(time=T_COLONIZATION, initial_size=N_initial_colony, growth_rate=0, population_id=2),
+    msprime.MassMigration(time=T_COLONIZATION, source=2, destination=COLONIZER, proportion=1.0),
     
     
     ]
