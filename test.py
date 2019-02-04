@@ -59,9 +59,9 @@ for REPS in range(0,reps):
 
 
     migration_matrix = [
-        [0,round(random.uniform(0.000001,1.0), 6),round(random.uniform(0.000001,1.0), 6)],
-        [round(random.uniform(0.000001,1.0), 6),0,round(random.uniform(0.000001,1.0), 6)],
-        [round(random.uniform(0.000001,1.0), 6),round(random.uniform(0.000001,1.0), 6),0]]
+        [0,round(random.uniform(0.00001,1.0), 6),round(random.uniform(0.00001,1.0), 6)],
+        [round(random.uniform(0.00001,1.0), 6),0,round(random.uniform(0.00001,1.0), 6)],
+        [round(random.uniform(0.00001,1.0), 6),round(random.uniform(0.00001,1.0), 6),0]]
 
     N1=20
     N2=20
