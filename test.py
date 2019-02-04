@@ -25,9 +25,9 @@ for REPS in range(0,reps):
     N_locals=random.randint(0,10000)
     N_metropolis=random.randint(0,10000)
     
+    generation_time = 20
     T_COLONIZATION=700/generation_time
     
-    generation_time = 20
     
     COLONIZER=random.randint(0,1)
     if COLONIZER==0:
