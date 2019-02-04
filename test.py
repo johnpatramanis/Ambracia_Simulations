@@ -32,9 +32,11 @@ for REPS in range(0,reps):
     COLONIZER=random.randint(0,1)
     if COLONIZER==0:
         N_initial_colony=random.randint(0,N_locals)
+        while N_initial_colony>N_metropolis:
+            N_initial_colony=random.randint(0,N_metropolis)
     if COLONIZER==1:
         N_initial_colony=random.randint(0,N_metropolis)
-    
+
 
 
     r_locals=round(random.uniform(0,1.0), 4)
