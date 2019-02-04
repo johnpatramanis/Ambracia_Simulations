@@ -33,6 +33,8 @@ for REPS in range(0,reps):
 
     r_locals=round(random.uniform(0,1.0), 4)
     r_metropolis=round(random.uniform(0,1.0), 4)
+    r_colony=round(random.uniform(0,1.0), 4)
+    
     while N_initial_colony / math.exp(-r_colony * T_COLONIZATION)>N_metropolis:
         r_colony=round(random.uniform(0,1.0), 4)
     
