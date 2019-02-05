@@ -12,7 +12,7 @@ from multiprocessing import Process,Manager
 start_time = time.time()
 
 
-reps=100
+reps=300
 for REPS in range(0,reps):
 
     totalf3=[]
@@ -22,8 +22,8 @@ for REPS in range(0,reps):
     
     parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
     
-    N_locals=random.randint(0,10000)
-    N_metropolis=random.randint(0,10000)
+    N_locals=random.randint(300,10000)
+    N_metropolis=random.randint(300,10000)
     
     generation_time = 20
     T_COLONIZATION=700/generation_time
@@ -31,11 +31,11 @@ for REPS in range(0,reps):
     
     COLONIZER=random.randint(0,1)
     if COLONIZER==0:
-        N_initial_colony=random.randint(0,N_locals)
+        N_initial_colony=random.randint(300,N_locals)
         while N_initial_colony>N_metropolis:
-            N_initial_colony=random.randint(0,N_metropolis)
+            N_initial_colony=random.randint(300,N_metropolis)
     if COLONIZER==1:
-        N_initial_colony=random.randint(0,N_metropolis)
+        N_initial_colony=random.randint(300,N_metropolis)
 
 
 
