@@ -22,8 +22,8 @@ for REPS in range(0,reps):
     
     parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
     
-    N_locals=random.randint(300,10000)
-    N_metropolis=random.randint(300,10000)
+    N_locals=random.randint(300,1000)
+    N_metropolis=random.randint(300,1000)
     
     generation_time = 20
     T_COLONIZATION=700/generation_time
@@ -38,7 +38,7 @@ for REPS in range(0,reps):
         N_initial_colony=random.randint(300,N_metropolis)
 
 
-    print(N_locals,N_metropolis,N_initial_colony)
+
     r_locals=round(random.uniform(0,1.0), 4)
     r_metropolis=round(random.uniform(0,1.0), 4)
     r_colony=round(random.uniform(0,1.0), 4)
@@ -47,7 +47,7 @@ for REPS in range(0,reps):
         r_colony=round(random.uniform(0,1.0), 4)
     
     N_finale_colony=N_initial_colony / (math.exp(-r_colony * T_COLONIZATION))
-    
+    print(N_locals,N_metropolis,N_initial_colony,N_finale_colony)
     ###############################################################################################################################
     
 
