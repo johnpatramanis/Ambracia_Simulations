@@ -306,9 +306,10 @@ for REPS in range(0,reps):
             line=line.strip().split()
             try:
                 line[2]='rs{}'.format(snpcount)
+                line[1]=str(variants[snpcount][2])
             except IndexError:
+                line.append(str(variants[snpcount][2]))
                 line.append('rs{}'.format(snpcount))
-            line[1]=str(variants[snpcount][2])
             line.append('\n')
             line='\t'.join(line)
             snpcount+=1
