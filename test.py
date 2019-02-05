@@ -38,7 +38,7 @@ for REPS in range(0,reps):
         N_initial_colony=random.randint(300,N_metropolis)
 
 
-
+    print(N_locals,N_metropolis,N_initial_colony)
     r_locals=round(random.uniform(0,1.0), 4)
     r_metropolis=round(random.uniform(0,1.0), 4)
     r_colony=round(random.uniform(0,1.0), 4)
