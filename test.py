@@ -304,6 +304,8 @@ for REPS in range(0,reps):
     for line in VCF:
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
+            if len(line)<2:
+                print(line)
             try:
                 line[2]='rs{}'.format(snpcount)
                 line[1]=str(variants[snpcount][2])
