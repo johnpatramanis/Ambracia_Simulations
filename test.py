@@ -304,7 +304,10 @@ for REPS in range(0,reps):
     for line in VCF:
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
-            line[2]='rs{}'.format(snpcount)
+            try:
+                line[2]='rs{}'.format(snpcount)
+            except IndexError:
+                line.append('rs{}'.format(snpcount))
             line[1]=str(variants[snpcount][2])
             line.append('\n')
             line='\t'.join(line)
