@@ -22,8 +22,8 @@ for REPS in range(0,reps):
     
     parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
     
-    N_locals=random.randint(300,1000)
-    N_metropolis=random.randint(300,1000)
+    N_locals=random.randint(500,1000)
+    N_metropolis=random.randint(500,1000)
     
     generation_time = 20
     T_COLONIZATION=700/generation_time
@@ -39,9 +39,9 @@ for REPS in range(0,reps):
 
 
 
-    r_locals=round(random.uniform(0,1.0), 4)
-    r_metropolis=round(random.uniform(0,1.0), 4)
-    r_colony=round(random.uniform(0,1.0), 4)
+    r_locals=round(random.uniform(0,0.10), 4)
+    r_metropolis=round(random.uniform(0,0.10), 4)
+    r_colony=round(random.uniform(0,0.10), 4)
     
     while (N_initial_colony / (math.exp(-r_colony * T_COLONIZATION)) ) > N_metropolis:
         r_colony=round(random.uniform(0,1.0), 4)
@@ -61,9 +61,9 @@ for REPS in range(0,reps):
 
 
     migration_matrix = [
-        [0,round(random.uniform(0.00001,0.05), 6),round(random.uniform(0.00001,0.50), 6)],
-        [round(random.uniform(0.00001,0.50), 6),0,round(random.uniform(0.00001,0.50), 6)],
-        [round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6),0]]
+        [0,round(random.uniform(0.00001,1.0), 6),round(random.uniform(0.00001,1.0), 6)],
+        [round(random.uniform(0.00001,1.0), 6),0,round(random.uniform(0.00001,1.0), 6)],
+        [round(random.uniform(0.00001,1.0), 6),round(random.uniform(0.00001,1.0), 6),0]]
 
     N1=20
     N2=20
@@ -304,7 +304,7 @@ for REPS in range(0,reps):
     for line in VCF:
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
-            if len(line)<=2:
+            if len(line)=<2:
                 continue
             line[2]='rs{}'.format(snpcount)
             line[1]=str(variants[snpcount][2])
