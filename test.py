@@ -12,7 +12,7 @@ from multiprocessing import Process,Manager
 start_time = time.time()
 
 
-reps=300
+reps=1000
 for REPS in range(0,reps):
 
     totalf3=[]
@@ -39,9 +39,9 @@ for REPS in range(0,reps):
 
 
 
-    r_locals=round(random.uniform(0,0.30), 4)
-    r_metropolis=round(random.uniform(0,0.30), 4)
-    r_colony=round(random.uniform(0,0.30), 4)
+    r_locals=round(random.uniform(0,0.50), 4)
+    r_metropolis=round(random.uniform(0,0.50), 4)
+    r_colony=round(random.uniform(0,0.50), 4)
     
     while (N_initial_colony / (math.exp(-r_colony * T_COLONIZATION)) ) > N_metropolis:
         r_colony=round(random.uniform(0,1.0), 4)
@@ -61,9 +61,9 @@ for REPS in range(0,reps):
 
 
     migration_matrix = [
-        [0,round(random.uniform(0.00001,1.0), 6),round(random.uniform(0.00001,1.0), 6)],
-        [round(random.uniform(0.00001,1.0), 6),0,round(random.uniform(0.00001,1.0), 6)],
-        [round(random.uniform(0.00001,1.0), 6),round(random.uniform(0.00001,1.0), 6),0]]
+        [0,round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6)],
+        [round(random.uniform(0.00001,0.50), 6),0,round(random.uniform(0.00001,0.50), 6)],
+        [round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6),0]]
 
     N1=20
     N2=20
