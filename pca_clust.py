@@ -23,9 +23,12 @@ for pop in POPS:
     print(counter)
     print(stop)
     pca_clust.append(eigenvecs[counter:stop])
-    counter=int(pop/2)
+    counter=stop
 
 print(pca_clust)
+
+indistance=[]
+outdistance=[]
 
 for cluster in pca_clust:
     clustercenter=np.mean(np.asarray(cluster),axis=0)
@@ -33,5 +36,8 @@ for cluster in pca_clust:
     for x in cluster:
         meandistfromcent.append(numpy.linalg.norm(clustercenter-x))
     meandistfromcent=np.mean(meandistfromcent)
-    print(clustercenter)
-    print(meandistfromcent)
+    indistance.append(meandistfromcent)
+    
+print(indistance)
+    
+ 
