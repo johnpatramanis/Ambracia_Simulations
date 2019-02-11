@@ -10,7 +10,7 @@ for line in PCAFILE:
     line=line.strip().split()
     eigenvecs.append([float(line[2]),float(line[3])])
 
-
+REPS=1
 Pop1=20
 Pop2=20
 Pop3=20
@@ -42,9 +42,12 @@ for cluster in pca_clust:
 
 for j in centers:
     for k in centers:
-        if numpy.linalg.norm(clustercenter-x)!=0 and numpy.linalg.norm(clustercenter-x) not in outdistance:
-            outdistance.append(numpy.linalg.norm(clustercenter-x))
+        if numpy.linalg.norm(j-k)!=0 and numpy.linalg.norm(j-k) not in outdistance:
+            outdistance.append(numpy.linalg.norm(j-k))
 
 print(indistance)
 print(outdistance)
- 
+
+PCACLUSTERING=open('PCA_CLUSTERING_{}'.format(REPS),'w')
+PCACLUSTERING.write('\t'.join(indistance)+'\t'+'\t'.join(outdistance))
+PCACLUSTERING.close()
