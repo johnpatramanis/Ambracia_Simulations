@@ -1,12 +1,12 @@
 import msprime
 import numpy as np
-import numpy.linalg
 import math
 import os
 import time
 import re
 import random
 import sys
+import os.path
 from multiprocessing import Process,Manager
 
 
@@ -69,7 +69,6 @@ for REPS in range(0,reps):
     N1=20
     N2=20
     N3=20
-    POPS=[N1,N2,N3]
     samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
     demographic_events = [
@@ -323,19 +322,6 @@ for REPS in range(0,reps):
     os.system('plink --vcf total_chroms.vcf --make-bed --out simulation')
 
 
-
-    
-
-    import os.path
-    if os.path.isfile('simulation.bed'):
-        simulationfile='simulation'
-    else:
-        simulationfile='simulation-temporary'
-    
-    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
-    
-    
-
     PCAFILE=open('pcaofsimulation.eigenvec','r')
     eigenvecs=[]
     for line in PCAFILE:
@@ -378,6 +364,16 @@ for REPS in range(0,reps):
     PCACLUSTERING.write('\t'.join([str(x) for x in indistance])+'\t'+'\t'.join([str(x) for x in outdistance]))
     PCACLUSTERING.close()
 
+
+    
+
+    if os.path.isfile('simulation.bed'):
+        simulationfile='simulation'
+    else:
+        simulationfile='simulation-temporary'
+    
+    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
+    
     
     ####################################### 3 Pop Test ######################################################################################
     parfile=open('parfile.txt','w')
