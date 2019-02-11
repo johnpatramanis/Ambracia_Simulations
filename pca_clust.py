@@ -28,16 +28,23 @@ for pop in POPS:
 print(pca_clust)
 
 indistance=[]
+centers=[]
 outdistance=[]
 
 for cluster in pca_clust:
     clustercenter=np.mean(np.asarray(cluster),axis=0)
+    centers.append(clustercenter)
     meandistfromcent=[]
     for x in cluster:
         meandistfromcent.append(numpy.linalg.norm(clustercenter-x))
     meandistfromcent=np.mean(meandistfromcent)
     indistance.append(meandistfromcent)
-    
+
+for j in centers:
+    for k in centers:
+        if numpy.linalg.norm(clustercenter-x)!=0 and numpy.linalg.norm(clustercenter-x) not in outdistance:
+            outdistance.append(numpy.linalg.norm(clustercenter-x))
+
 print(indistance)
-    
+print(outdistance)
  
