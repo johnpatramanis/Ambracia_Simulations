@@ -49,5 +49,5 @@ print(indistance)
 print(outdistance)
 
 PCACLUSTERING=open('PCA_CLUSTERING_{}'.format(REPS),'w')
-PCACLUSTERING.write('\t'.join(indistance)+'\t'+'\t'.join(outdistance))
+PCACLUSTERING.write('\t'.join([str(x) for x in indistance])+'\t'+'\t'.join([str(x) for x in outdistance]))
 PCACLUSTERING.close()
