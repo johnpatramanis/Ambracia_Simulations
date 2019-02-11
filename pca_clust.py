@@ -1,10 +1,10 @@
 import numpy as np
+import np.linalg
 
 
 
 
-
-PCAFILE=open('ancient_ambrac.eigenvec','r')
+PCAFILE=open('pcaofsimulation.eigenvec','r')
 eigenvecs=[]
 for line in PCAFILE:
     line=line.strip().split()
@@ -26,6 +26,12 @@ for pop in POPS:
     counter=int(pop/2)
 
 print(pca_clust)
+
 for cluster in pca_clust:
     clustercenter=np.mean(np.asarray(cluster),axis=0)
+    meandistfromcent=[]
+    for x in cluster:
+        meandistfromcent.append(numpy.linalg.norm(clustercenter-x))
+    meandistfromcent=np.mean(meandistfromcent)
     print(clustercenter)
+    print(meandistfromcent)
