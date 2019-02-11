@@ -1,6 +1,6 @@
 import msprime
 import numpy as np
-import numpy.linealg
+import numpy.linalg
 import math
 import os
 import time
