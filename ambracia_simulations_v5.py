@@ -63,8 +63,8 @@ for REPS in range(0,reps):
 
 
     migration_matrix = [
-        [0,round(random.uniform(0.00001,0.10), 6),round(random.uniform(0.00001,0.10), 6)],
-        [round(random.uniform(0.00001,0.10), 6),0,round(random.uniform(0.00001,0.10), 6)],
+        [0,round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6)],
+        [round(random.uniform(0.00001,0.50), 6),0,round(random.uniform(0.00001,0.50), 6)],
         [round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6),0]]
 
     N1=20
@@ -237,8 +237,6 @@ for REPS in range(0,reps):
     end=0
     counter=0
     chr=1
-    CHUNK_START_END=[]
-    
     
     for line in SNPS:
         line=line.strip().split()
@@ -253,16 +251,25 @@ for REPS in range(0,reps):
             
         counter+=1
     SNPS.close()
-    MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
+    
     TO_BE_REMOVED=[]
     
     for x in range(0,len(CHUNKS)-1):
         #if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (CHUNKS[x] not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] >= 0):
         if x%2!=0:
             TO_BE_REMOVED.append((CHUNKS[x+1]))
-    print(len(CHUNKS))
-    #CHUNKS=[x for x in CHUNKS if x not in TO_BE_REMOVED]
-    print(len(CHUNKS))
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
+
     MS_ALL_CHROMS=[]
     for line in MS_MERGED:        
         line=line.strip().split()
@@ -275,14 +282,13 @@ for REPS in range(0,reps):
     opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
     opener.write('\n')
     for x in CHUNKS:
+        opener.write("\n")
+        opener.write("//\n")
+        opener.write("segsites: {}\n".format(x[0]-begin))
         positions_of_this_chunk=POSITIONS[begin:x[0]]
         positions_of_this_chunk=' '.join(positions_of_this_chunk)
-        if x not in TO_BE_REMOVED:
-            opener.write("\n")
-            opener.write("//\n")
-            opener.write("segsites: {}\n".format(x[0]-begin))
-            opener.write("positions: {}".format(positions_of_this_chunk))
-            opener.write("\n")
+        opener.write("positions: {}".format(positions_of_this_chunk))
+        opener.write("\n")
 
         for y in MS_ALL_CHROMS:                    
             opener.write(''.join(y[begin:x[0]]))
@@ -294,6 +300,18 @@ for REPS in range(0,reps):
         
     opener.close()
     elapsed_time_2=time.time() - start_time
+    opener=open('CHUNKED_{}'.format(REPS),'r')
+    opener2=opene('CHUNKED_500kb_gaps_{}'',w')
+    line_counter=0
+    for line in opener:
+        line=line.split()
+        if line[0:1]=='//':
+            line_counter+=1
+        if line_counter%2==0:
+            opener2.write(''.join(line))
+    
+    
+    opener.close()
     print('step 2 : {}'.format(elapsed_time_2/60))
 
 
