@@ -308,7 +308,8 @@ for REPS in range(0,reps):
         if line[0:1]=='//':
             line_counter+=1
         if line_counter%2==0:
-            opener2.write(''.join(line))
+            opener2.write(' '.join(line))
+            opener2.write('\n')
     
     
     opener.close()
