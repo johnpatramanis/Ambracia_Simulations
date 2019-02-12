@@ -246,12 +246,10 @@ for REPS in range(0,reps):
         end=float(line[2])
         if (end-begin>=500000.0) :
             CHUNKS.append([counter,begin,end])
-            counter=0
             begin=float(line[2])
         if chr!=int(line[0]):
             begin=0
             chr=int(line[0])
-            counter=0
             
         counter+=1
     SNPS.close()
@@ -262,13 +260,9 @@ for REPS in range(0,reps):
         #if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (CHUNKS[x] not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] >= 0):
         if x%2!=0:
             TO_BE_REMOVED.append((CHUNKS[x+1]))
-            
-    
-    print('CHUNKS BEFORE REMOVAL',len(CHUNKS))
-    CHUNKS=[x for x in CHUNKS if x not in TO_BE_REMOVED]
-    print('CHUNKS AFTER REMOVAL',len(CHUNKS))
-    print(CHUNKS)
-    
+    print(len(CHUNKS))
+    #CHUNKS=[x for x in CHUNKS if x not in TO_BE_REMOVED]
+    print(len(CHUNKS))
     MS_ALL_CHROMS=[]
     for line in MS_MERGED:        
         line=line.strip().split()
@@ -292,7 +286,7 @@ for REPS in range(0,reps):
         for y in MS_ALL_CHROMS:                    
             opener.write(''.join(y[begin:x[0]]))
             opener.write('\n')            
-        begin=begin+x[0]+1
+        begin=x[0]+1
         
         counter+=1
 
