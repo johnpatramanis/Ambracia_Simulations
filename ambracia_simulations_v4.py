@@ -251,10 +251,25 @@ for REPS in range(0,reps):
             
         counter+=1
     SNPS.close()
+    
+    TO_BE_REMOVED=[]
+    
+    for x in range(0,len(CHUNKS)-1):
+        #if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (CHUNKS[x] not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] >= 0):
+        if x%2!=0:
+            TO_BE_REMOVED.append((CHUNKS[x+1]))
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
-    
 
-    
     MS_ALL_CHROMS=[]
     for line in MS_MERGED:        
         line=line.strip().split()
