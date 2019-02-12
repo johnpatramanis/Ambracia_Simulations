@@ -69,6 +69,7 @@ for REPS in range(0,reps):
     N1=20
     N2=20
     N3=20
+    POPS=[N1,N2,N3]
     samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3
 
     demographic_events = [
