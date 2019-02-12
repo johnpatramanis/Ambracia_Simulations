@@ -275,15 +275,14 @@ for REPS in range(0,reps):
     opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
     opener.write('\n')
     for x in CHUNKS:
-        if x in TO_BE_REMOVED:
-            continue
-        opener.write("\n")
-        opener.write("//\n")
-        opener.write("segsites: {}\n".format(x[0]-begin))
         positions_of_this_chunk=POSITIONS[begin:x[0]]
         positions_of_this_chunk=' '.join(positions_of_this_chunk)
-        opener.write("positions: {}".format(positions_of_this_chunk))
-        opener.write("\n")
+        if x not in TO_BE_REMOVED:
+            opener.write("\n")
+            opener.write("//\n")
+            opener.write("segsites: {}\n".format(x[0]-begin))
+            opener.write("positions: {}".format(positions_of_this_chunk))
+            opener.write("\n")
 
         for y in MS_ALL_CHROMS:                    
             opener.write(''.join(y[begin:x[0]]))
