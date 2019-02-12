@@ -246,10 +246,12 @@ for REPS in range(0,reps):
         end=float(line[2])
         if (end-begin>=500000.0) :
             CHUNKS.append([counter,begin,end])
+            counter=0
             begin=float(line[2])
         if chr!=int(line[0]):
             begin=0
             chr=int(line[0])
+            counter=0
             
         counter+=1
     SNPS.close()
@@ -290,7 +292,7 @@ for REPS in range(0,reps):
         for y in MS_ALL_CHROMS:                    
             opener.write(''.join(y[begin:x[0]]))
             opener.write('\n')            
-        begin=x[0]+1
+        begin=begin+x[0]+1
         
         counter+=1
 
