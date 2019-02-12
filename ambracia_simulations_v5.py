@@ -301,7 +301,7 @@ for REPS in range(0,reps):
     opener.close()
     elapsed_time_2=time.time() - start_time
     opener=open('CHUNKED_{}'.format(REPS),'r')
-    opener2=opene('CHUNKED_500kb_gaps_{}'',w')
+    opener2=open('CHUNKED_500kb_gaps_{}'.format(REPS),'w')
     line_counter=0
     for line in opener:
         line=line.split()
@@ -312,6 +312,7 @@ for REPS in range(0,reps):
     
     
     opener.close()
+    opener2.close()
     print('step 2 : {}'.format(elapsed_time_2/60))
 
 
