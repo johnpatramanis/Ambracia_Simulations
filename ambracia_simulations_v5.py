@@ -257,8 +257,7 @@ for REPS in range(0,reps):
     TO_BE_REMOVED=[]
     
     for x in range(0,len(CHUNKS)-1):
-        print(CHUNKS[x+1][1] - CHUNKS[x][2])
-        if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (x not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] > 0):
+        if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (x not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] >= 0):
             TO_BE_REMOVED.append((x+1))
     print(len(CHUNKS))
     CHUNKS=[x for x in CHUNKS if x not in TO_BE_REMOVED]
