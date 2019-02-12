@@ -260,9 +260,9 @@ for REPS in range(0,reps):
         #if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (CHUNKS[x] not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] >= 0):
         if x%2==0:
             TO_BE_REMOVED.append((CHUNKS[x+1]))
-    print(len(CHUNKS))
+    print('CHUNKS BEFORE REMOVAL',len(CHUNKS))
     CHUNKS=[x for x in CHUNKS if x not in TO_BE_REMOVED]
-    print(len(CHUNKS))
+    print('CHUNKS AFTER REMOVAL',len(CHUNKS))
     MS_ALL_CHROMS=[]
     for line in MS_MERGED:        
         line=line.strip().split()
