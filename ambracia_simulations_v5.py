@@ -275,6 +275,8 @@ for REPS in range(0,reps):
     opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
     opener.write('\n')
     for x in CHUNKS:
+        if x in TO_BE_REMOVED:
+            continue
         opener.write("\n")
         opener.write("//\n")
         opener.write("segsites: {}\n".format(x[0]-begin))
