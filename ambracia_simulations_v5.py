@@ -304,9 +304,9 @@ for REPS in range(0,reps):
     opener2=open('CHUNKED_500kb_gaps_{}'.format(REPS),'w')
     line_counter=0
     for line in opener:
-        line=line.split()
-        if line[0:1]=='//':
+        if line=="//\n":
             line_counter+=1
+        line=line.split()
         if line_counter%2==0:
             opener2.write(' '.join(line))
             opener2.write('\n')
