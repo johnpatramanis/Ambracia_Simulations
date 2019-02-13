@@ -24,8 +24,8 @@ for REPS in range(0,reps):
     
     parametersfile=open('PARAMETERS_{}'.format(REPS),'w')
     
-    N_locals=random.randint(500,1000)
-    N_metropolis=random.randint(500,1000)
+    N_locals=int(round(random.uniform(500.0,1000.0)))
+    N_metropolis=int(round(random.uniform(500.0,1000.0)))
     
     generation_time = 20
     T_COLONIZATION=700/generation_time
@@ -33,17 +33,17 @@ for REPS in range(0,reps):
     
     COLONIZER=random.randint(0,1)
     if COLONIZER==0:
-        N_initial_colony=random.randint(300,N_locals)
+        N_initial_colony=int(round(random.uniform(300.0,float(N_locals))))
         while N_initial_colony>N_metropolis:
-            N_initial_colony=random.randint(300,N_metropolis)
+            N_initial_colony=int(round(random.uniform(300.0,float(N_metropolis))))
     if COLONIZER==1:
-        N_initial_colony=random.randint(300,N_metropolis)
+        N_initial_colony=int(round(random.uniform(300.0,float(N_metropolis))))
 
 
 
-    r_locals=round(random.uniform(0,0.50), 4)
-    r_metropolis=round(random.uniform(0,0.50), 4)
-    r_colony=round(random.uniform(0,0.50), 4)
+    r_locals=round(random.uniform(0,0.20), 4)
+    r_metropolis=round(random.uniform(0,0.20), 4)
+    r_colony=round(random.uniform(0,0.20), 4)
     
     while (N_initial_colony / (math.exp(-r_colony * T_COLONIZATION)) ) > N_metropolis:
         r_colony=round(random.uniform(0,1.0), 4)
@@ -63,8 +63,8 @@ for REPS in range(0,reps):
 
 
     migration_matrix = [
-        [0,round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6)],
-        [round(random.uniform(0.00001,0.50), 6),0,round(random.uniform(0.00001,0.50), 6)],
+        [0,round(random.uniform(0.00001,0.10), 6),round(random.uniform(0.00001,0.50), 6)],
+        [round(random.uniform(0.00001,0.10), 6),0,round(random.uniform(0.00001,0.50), 6)],
         [round(random.uniform(0.00001,0.50), 6),round(random.uniform(0.00001,0.50), 6),0]]
 
     N1=20
