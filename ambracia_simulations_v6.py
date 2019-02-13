@@ -68,7 +68,7 @@ for REPS in range(0,reps):
         [0,10**(-1*random.uniform(1,4)),10**(-1*random.uniform(1,4)),0.0001],
         [10**(-1*random.uniform(1,4)),0,10**(-1*random.uniform(1,4)),0.0001],
         [10**(-1*random.uniform(1,4)),10**(-1*random.uniform(1,4)),0,0.0001],
-        [0.00001,0.0001,0.0001,0]
+        [0.0001,0.0001,0.0001,0]
         ]
 
     N1=20
