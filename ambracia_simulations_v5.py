@@ -251,7 +251,7 @@ for REPS in range(0,reps):
             
         counter+=1
     SNPS.close()
-    
+##################### CHUNKS TO BE REMOVED? ########################
     TO_BE_REMOVED=[]
     
     for x in range(0,len(CHUNKS)-1):
@@ -269,7 +269,7 @@ for REPS in range(0,reps):
     
     
     MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
-
+###########PRINT CHUNKS MS FORMAT FOR COMUSTATS
     MS_ALL_CHROMS=[]
     for line in MS_MERGED:        
         line=line.strip().split()
@@ -296,7 +296,7 @@ for REPS in range(0,reps):
         begin=x[0]+1
         
         counter+=1
-
+##################REPRINT WITH GAPS OF 500kb BETWEEN CHUNKS ###############################################################
         
     opener.close()
     elapsed_time_2=time.time() - start_time
@@ -503,7 +503,7 @@ for REPS in range(0,reps):
     elapsed_time_3=time.time() - start_time
     print('step 3 : {}'.format(elapsed_time_3/60))        
     
-    os.system('CoMuStats -input CHUNKED_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
+    os.system('CoMuStats -input CHUNKED_500kb_gaps_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
     elapsed_time_4=time.time() - start_time
     print('step 4 : {}'.format(elapsed_time_4/60)) 
         
