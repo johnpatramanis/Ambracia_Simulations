@@ -370,7 +370,7 @@ for REPS in range(0,reps):
     
     
     removefam=open('rfamtoremove.txt','w')
-    for k in range(0,(N4/2)-1):
+    for k in range(0,int((N4/2)-1)):
         removefam.write('outgroup{}\n'.format(k))
     removefam.close()
     
