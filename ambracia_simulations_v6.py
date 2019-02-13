@@ -65,17 +65,17 @@ for REPS in range(0,reps):
 
 
     migration_matrix = [
-        [0,10**(-1*random.uniform(1,4)),10**(-1*random.uniform(1,4)),0.00001],
-        [10**(-1*random.uniform(1,4)),0,10**(-1*random.uniform(1,4)),0.00001],
-        [10**(-1*random.uniform(1,4)),10**(-1*random.uniform(1,4)),0,0.00001],
-        [0.00001,0.00001,0.00001,0]
+        [0,10**(-1*random.uniform(1,4)),10**(-1*random.uniform(1,4)),0.0001],
+        [10**(-1*random.uniform(1,4)),0,10**(-1*random.uniform(1,4)),0.0001],
+        [10**(-1*random.uniform(1,4)),10**(-1*random.uniform(1,4)),0,0.0001],
+        [0.00001,0.0001,0.0001,0]
         ]
 
     N1=20
     N2=20
     N3=20
     N4=20
-    POPS=[N1,N2,N3,N4]
+    POPS=[N1,N2,N3]
     samples=[msprime.Sample(0,0)]*N1 + [msprime.Sample(1,0)]*N2 + [msprime.Sample(2,0)] *N3 + [msprime.Sample(3,0)]*N4
 
     demographic_events = [
@@ -83,6 +83,9 @@ for REPS in range(0,reps):
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 0)),
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(1, 2)),
     msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 1)),
+    msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(2, 3)),
+    msprime.MigrationRateChange(time=T_COLONIZATION, rate=0, matrix_index=(3, 2)),
+    
     msprime.PopulationParametersChange(time=T_COLONIZATION, initial_size=N_initial_colony, growth_rate=0, population_id=2),
     msprime.MassMigration(time=T_COLONIZATION, source=2, destination=COLONIZER, proportion=1.0),
     
@@ -196,7 +199,7 @@ for REPS in range(0,reps):
         
         msfile=open('ms_{}'.format(MYRUN),'w')
         column=0
-        while column<len(samples):
+        while column<len(samples)-N4:
             msprimefile=open('ms_prime_{}'.format(MYRUN),'r')
             person=[]
             for line in msprimefile:
@@ -214,7 +217,7 @@ for REPS in range(0,reps):
 
 
     MERGED=open('ms_allchroms_{}'.format(REPS),'w')
-    for sample in range(0,len(samples)):
+    for sample in range(0,len(samples)-N4):
         for chromosome in range(1,23):
             file=open('ms_{}'.format(chromosome),'r')
             myline=0
@@ -284,7 +287,7 @@ for REPS in range(0,reps):
     counter=0
     begin=0
     opener=open('CHUNKED_{}'.format(REPS),'w')
-    opener.write('ms {} {}\n{} {} {}'.format(len(samples),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
+    opener.write('ms {} {}\n{} {} {}'.format((len(samples)-N4),len(CHUNKS),random.randint(0,10000),random.randint(0,10000),random.randint(0,10000)))
     opener.write('\n')
     for x in CHUNKS:
         opener.write("\n")
@@ -358,6 +361,22 @@ for REPS in range(0,reps):
     os.system('plink --vcf total_chroms.vcf --make-bed --out simulation')
 
 
+    
+
+    if os.path.isfile('simulation.bed'):
+        simulationfile='simulation'
+    else:
+        simulationfile='simulation-temporary'
+    
+    
+    removefam=open('rfamtoremove.txt','w')
+    for k in range(0,(N4/2)-1)
+        removefam.write('outgroup{}\n'.format(k))
+    removefam.close()
+    
+    os.system('plink --bfile {} --remove-fam famtoremove.txt --pca 10 --out pcaofsimulation'.format(simulationfile))
+    
+    
     PCAFILE=open('pcaofsimulation.eigenvec','r')
     eigenvecs=[]
     for line in PCAFILE:
@@ -402,13 +421,10 @@ for REPS in range(0,reps):
 
 
     
-
-    if os.path.isfile('simulation.bed'):
-        simulationfile='simulation'
-    else:
-        simulationfile='simulation-temporary'
     
-    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
+    
+    
+    
     
     
     ####################################### 3 Pop Test ######################################################################################
@@ -498,7 +514,7 @@ for REPS in range(0,reps):
     
     
     
-    
+    os.system('rm famtoremove.txt')
     os.system('rm simulation.*')
     os.system('rm simulation-temporary.*')
     os.system('rm ms_prime_*')
