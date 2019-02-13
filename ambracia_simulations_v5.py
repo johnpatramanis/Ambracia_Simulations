@@ -352,7 +352,16 @@ for REPS in range(0,reps):
 
     os.system('plink --vcf total_chroms.vcf --make-bed --out simulation')
 
-
+    
+############################################################## RUN PCA ######################################################################
+    if os.path.isfile('simulation.bed'):
+        simulationfile='simulation'
+    else:
+        simulationfile='simulation-temporary'
+    
+    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
+    
+############################################################## CLUSTERS OF PCA ###############################################################
     PCAFILE=open('pcaofsimulation.eigenvec','r')
     eigenvecs=[]
     for line in PCAFILE:
@@ -396,17 +405,8 @@ for REPS in range(0,reps):
     PCACLUSTERING.close()
 
 
-    
 
-    if os.path.isfile('simulation.bed'):
-        simulationfile='simulation'
-    else:
-        simulationfile='simulation-temporary'
-    
-    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
-    
-    
-    ####################################### 3 Pop Test ######################################################################################
+########################################### 3 Pop Test ######################################################################################
     parfile=open('parfile.txt','w')
 
     parfile.write('genotypename:    {}.bed\n'.format(simulationfile))
@@ -502,7 +502,8 @@ for REPS in range(0,reps):
 
     elapsed_time_3=time.time() - start_time
     print('step 3 : {}'.format(elapsed_time_3/60))        
-    
+################################################################ RUN COMUSTATS #################################################################
+
     os.system('CoMuStats -input CHUNKED_500kb_gaps_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
     elapsed_time_4=time.time() - start_time
     print('step 4 : {}'.format(elapsed_time_4/60)) 
