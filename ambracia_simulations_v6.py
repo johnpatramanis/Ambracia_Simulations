@@ -48,9 +48,14 @@ for REPS in range(0,reps):
     
     print(N_locals,N_metropolis,N_initial_colony,r_locals,r_metropolis)
     
+    growth_counter=0
     while (float(N_initial_colony) / (math.exp(-r_colony * T_COLONIZATION)) ) > float(N_metropolis):
         r_colony=10**(-1*random.uniform(1,4))
-    
+        growth_counter+=1
+        if growth_counter>=1000000:
+            r_colony=0
+            break
+            
     N_finale_colony=N_initial_colony / (math.exp(-r_colony * T_COLONIZATION))
     
     ###############################################################################################################################
