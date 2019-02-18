@@ -45,9 +45,14 @@ for REPS in range(0,reps):
     r_metropolis=10**(-1*random.uniform(1,4))
     r_colony=10**(-1*random.uniform(1,4))
     
-    while (N_initial_colony / (math.exp(-r_colony * T_COLONIZATION)) ) > N_metropolis:
+    growth_counter=0
+    while (float(N_initial_colony) / (math.exp(-r_colony * T_COLONIZATION)) ) > float(N_metropolis):
         r_colony=10**(-1*random.uniform(1,4))
-    
+        growth_counter+=1
+        if growth_counter>=1000000:
+            r_colony=0
+            break
+
     N_finale_colony=N_initial_colony / (math.exp(-r_colony * T_COLONIZATION))
     print(N_locals,N_metropolis,N_initial_colony,N_finale_colony)
     ###############################################################################################################################
@@ -108,7 +113,7 @@ for REPS in range(0,reps):
             demographic_events=demographic_events,recombination_map=recomb_map)
         outfile=open('ms_prime_{}'.format(j),'w')   
         for var in dd.variants():
-            L.append([j,var.index,var.position])
+            L.append([int(j),var.index,var.position])
             for genotype in var.genotypes:
                 outfile.write(str(genotype))
             outfile.write('\n')
