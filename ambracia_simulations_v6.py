@@ -46,7 +46,7 @@ for REPS in range(0,reps):
     r_metropolis=10**(-1*random.uniform(1,4))
     r_colony=10**(-1*random.uniform(1,4))
     
-    print(N_locals,N_metropolis,N_initial_colony,N_finale_colony,r_locals,r_metropolis)
+    print(N_locals,N_metropolis,N_initial_colony,r_locals,r_metropolis)
     
     while (float(N_initial_colony) / (math.exp(-r_colony * T_COLONIZATION)) ) > float(N_metropolis):
         r_colony=10**(-1*random.uniform(1,4))
