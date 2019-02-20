@@ -180,7 +180,7 @@ for REPS in range(0,reps):
     elapsed_time_1 = time.time() - start_time        
         
     print('Step 1 : {} '.format(elapsed_time_1/60))        
-    
+    print(REPS)
         
         
         
