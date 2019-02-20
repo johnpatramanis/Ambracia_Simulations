@@ -180,7 +180,7 @@ for REPS in range(0,reps):
     elapsed_time_1 = time.time() - start_time        
         
     print('Step 1 : {} '.format(elapsed_time_1/60))        
-    
+    print(REPS)
         
         
         
@@ -334,10 +334,11 @@ for REPS in range(0,reps):
 
     VCF=open('total_chroms.vcf','r')
     newVCF=open('newtotal_chroms.vcf','w')
-
     snpcount=0
-    
+    VCFinfo={}
     variants=sorted(variants)
+    
+    
     for line in VCF:
         if line[0]!='#' and snpcount<len(variants):
             line=line.strip().split()
@@ -345,6 +346,10 @@ for REPS in range(0,reps):
                 continue
             line[2]='rs{}'.format(snpcount)
             line[1]=str(variants[snpcount][2])
+            if line[0] in VCFinfo:
+                VCFinfo[line[0]].append([float(line[1]),line[2]])
+            else:
+                VCFinfo[line[0]]=[[float(line[1]),line[2]]]
             line.append('\n')
             line='\t'.join(line)
             snpcount+=1
@@ -426,9 +431,6 @@ for REPS in range(0,reps):
         for j in range(0,len(segments)-1):
             print(segments[j])
             os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
-############################################################## RUN PCA ######################################################################
-
-
 
         if os.path.isfile('simulation.bed'):
             simulationfile='simulation'
