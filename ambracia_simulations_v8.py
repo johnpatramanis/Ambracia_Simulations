@@ -447,83 +447,83 @@ for REPS in range(0,reps):
             if ((end-begin)>=10000000.0):
                 segments.append(y[1])
                 begin=float(y[0])+100000.0
-    totalf3=[]
-    for j in range(0,len(segments)-1):
-        print(segments[j])
-        os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
+        
+        for j in range(0,len(segments)-1):
+            print(segments[j])
+            os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
 
-        if os.path.isfile('simulation.bed'):
-            simulationfile='simulation'
-        else:
-            simulationfile='simulation-temporary'
-        parfile=open('parfile.txt','w')
-    
-        parfile.write('genotypename:    {}.bed\n'.format(simulationfile))
-        parfile.write('snpname:         {}.bim\n'.format(simulationfile))
-        parfile.write('indivname:       {}.fam\n'.format(simulationfile))
-        parfile.write('outputformat:   PACKEDANCESTRYMAP\n')
-        parfile.write('genotypeoutname: simulation.geno\n')
-        parfile.write('snpoutname:      simulation.snp\n')
-        parfile.write('indivoutname:    simulation.ind\n')
-        parfile.write('pordercheck: NO')
-    
-        parfile.close()
-    
-    
-        os.system('convertf -p parfile.txt')
-    
-        IND=open('simulation.ind','r')
-        newIND=open('newsimulation.ind','w')
-    
-        for line in IND:
-            line=line.strip().split()
-            label=re.search(r'([a-z]+)([0-9]+):[a-z]+[0-9]+',line[0])
-            pop=label.group(1)
-            number=label.group(0)
-            line[0]=str(number)
-            line[2]=str(pop)
-            newIND.write('\t'.join(line))
-            newIND.write('\n')
+            if os.path.isfile('simulation.bed'):
+                simulationfile='simulation'
+            else:
+                simulationfile='simulation-temporary'
+            parfile=open('parfile.txt','w')
+        
+            parfile.write('genotypename:    {}.bed\n'.format(simulationfile))
+            parfile.write('snpname:         {}.bim\n'.format(simulationfile))
+            parfile.write('indivname:       {}.fam\n'.format(simulationfile))
+            parfile.write('outputformat:   PACKEDANCESTRYMAP\n')
+            parfile.write('genotypeoutname: simulation.geno\n')
+            parfile.write('snpoutname:      simulation.snp\n')
+            parfile.write('indivoutname:    simulation.ind\n')
+            parfile.write('pordercheck: NO')
+        
+            parfile.close()
+        
+        
+            os.system('convertf -p parfile.txt')
+        
+            IND=open('simulation.ind','r')
+            newIND=open('newsimulation.ind','w')
+        
+            for line in IND:
+                line=line.strip().split()
+                label=re.search(r'([a-z]+)([0-9]+):[a-z]+[0-9]+',line[0])
+                pop=label.group(1)
+                number=label.group(0)
+                line[0]=str(number)
+                line[2]=str(pop)
+                newIND.write('\t'.join(line))
+                newIND.write('\n')
+                
+            IND.close
+            newIND.close()
+            SNP=open('simulation.snp','r')
+            snpcounter=0
+            for line in SNP:
+                snpcounter+=1
+            SNP.close()
             
-        IND.close
-        newIND.close()
-        SNP=open('simulation.snp','r')
-        snpcounter=0
-        for line in SNP:
-            snpcounter+=1
-        SNP.close()
+            
+            os.system('mv newsimulation.ind simulation.ind')
+        
+            Pop3=open('qp3Poplist','w')
+            Pop3.write('locals metropolis apoikia')
+            Pop3.close()
+        
+            Parfilepop=open('3popparfile','w')
+            Parfilepop.write('SSS: allmap\n')
+            Parfilepop.write('indivname:   simulation.ind\n')
+            Parfilepop.write('snpname:     simulation.snp\n')
+            Parfilepop.write('genotypename: simulation.geno\n')
+            Parfilepop.write('popfilename: qp3Poplist\n')
+        
+            Parfilepop.close()
+            os.system('mv newsimulation.snp simulation.snp')
+            os.system('ls')
         
         
-        os.system('mv newsimulation.ind simulation.ind')
-    
-        Pop3=open('qp3Poplist','w')
-        Pop3.write('locals metropolis apoikia')
-        Pop3.close()
-    
-        Parfilepop=open('3popparfile','w')
-        Parfilepop.write('SSS: allmap\n')
-        Parfilepop.write('indivname:   simulation.ind\n')
-        Parfilepop.write('snpname:     simulation.snp\n')
-        Parfilepop.write('genotypename: simulation.geno\n')
-        Parfilepop.write('popfilename: qp3Poplist\n')
-    
-        Parfilepop.close()
-        os.system('mv newsimulation.snp simulation.snp')
-        os.system('ls')
-    
-    
-    
-        os.system('qp3Pop -p 3popparfile >f3stat_{}'.format(REPS))
         
-        
-        f3file=open('f3stat_{}'.format(REPS),'r')
-        for line in f3file:
-            line=line.strip().split()
-            #print(line)
-            if line[0]=='result:':
-                totalf3.append([float(line[4]),snpcounter])
-        f3file.close()
-        os.system('rm f3stat_{}'.format(REPS))
+            os.system('qp3Pop -p 3popparfile >f3stat_{}'.format(REPS))
+            
+            
+            f3file=open('f3stat_{}'.format(REPS),'r')
+            for line in f3file:
+                line=line.strip().split()
+                #print(line)
+                if line[0]=='result:':
+                    totalf3.append([float(line[4]),snpcounter])
+            f3file.close()
+            os.system('rm f3stat_{}'.format(REPS))
 ############################################## FINAL WRITING #################################################################################
     
     f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
