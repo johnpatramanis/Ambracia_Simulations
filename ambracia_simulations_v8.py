@@ -257,7 +257,7 @@ for REPS in range(0,reps):
         line=line.strip().split()
         POSITIONS.append(line[2])
         end=float(line[2])
-        if (end-begin>=500000.0) :
+        if (end-begin>=5000000.0) :
             CHUNKS.append([counter,begin,end])
             begin=float(line[2])
         if chr!=int(line[0]):
