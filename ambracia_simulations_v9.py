@@ -359,7 +359,7 @@ for REPS in range(0,reps):
 
     os.system('mv newtotal_chroms.vcf total_chroms.vcf')
 
-    os.system('plink --vcf total_chroms.vcf --allow-extra-chr --make-bed --out simulation')
+    os.system('plink --vcf total_chroms.vcf --chr-set {} --make-bed --out simulation'.format(KOMMATIA))
 
     
 ############################################################## RUN PCA ######################################################################
@@ -368,7 +368,7 @@ for REPS in range(0,reps):
     else:
         simulationfile='simulation-temporary'
     
-    os.system('plink --bfile {} --allow-extra-chr --pca 10 --out pcaofsimulation'.format(simulationfile))
+    os.system('plink --bfile {} --chr-set {} --pca 10 --out pcaofsimulation'.format(KOMMATIA,simulationfile))
     
 ############################################################## CLUSTERS OF PCA ###############################################################
     PCAFILE=open('pcaofsimulation.eigenvec','r')
@@ -429,7 +429,7 @@ for REPS in range(0,reps):
                 begin=float(y[0])+100000.0
         for j in range(0,len(segments)-1):    
             print(segments[j])    
-            os.system('plink --vcf total_chroms.vcf  --allow-extra-chr --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))    
+            os.system('plink --vcf total_chroms.vcf  --chr-set {} --from {} --to {} --make-bed --out simulation'.format(KOMMATIA,segments[j],segments[j+1]))    
         
         
         
