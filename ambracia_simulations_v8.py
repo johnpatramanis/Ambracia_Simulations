@@ -447,7 +447,7 @@ for REPS in range(0,reps):
             if ((end-begin)>=10000000.0):
                 segments.append(y[1])
                 begin=float(y[0])+100000.0
-        
+    totalf3=[]
     for j in range(0,len(segments)-1):
         print(segments[j])
         os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
@@ -511,7 +511,6 @@ for REPS in range(0,reps):
         
         
         f3file=open('f3stat_{}'.format(REPS),'r')
-        totalf3=[]
         for line in f3file:
             line=line.strip().split()
             #print(line)
@@ -520,6 +519,7 @@ for REPS in range(0,reps):
         f3file.close()
         os.system('rm f3stat_{}'.format(REPS))
 ############################################## FINAL WRITING #################################################################################
+    
     f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
     for line in totalf3:
         for x in line:
