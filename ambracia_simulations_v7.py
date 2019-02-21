@@ -276,11 +276,9 @@ for REPS in range(0,reps):
     MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
 ###########PRINT CHUNKS MS FORMAT FOR COMUSTATS
     MS_ALL_CHROMS=[]
-    for line in MS_MERGED:        
+    for line in MS_MERGED:
         line=line.strip().split()
         MS_ALL_CHROMS.append(line[0])
-    #print(len(MS_ALL_CHROMS))
-    #print(type(MS_ALL_CHROMS))
     counter=0
     begin=0
     opener=open('CHUNKED_{}'.format(REPS),'w')
@@ -301,7 +299,7 @@ for REPS in range(0,reps):
         begin=x[0]+1
         
         counter+=1
-##################REPRINT WITH GAPS OF 500kb BETWEEN CHUNKS ###############################################################
+###################################REPRINT WITH GAPS OF 500kb BETWEEN CHUNKS ###############################################################
         
     opener.close()
     elapsed_time_2=time.time() - start_time
@@ -323,7 +321,7 @@ for REPS in range(0,reps):
 
 
 
-#Arrange the vcf files into one, fix labels , bed file , transform to eigen, calculate pca and f stats
+##############Arrange the vcf files into one, fix labels , bed file , transform to eigen, calculate pca and f stats##########################
         
     os.system('rm mynewvcf*.vcf')
     os.system('bcftools concat -o total_chroms.vcf myvcf*.vcf')
@@ -485,13 +483,13 @@ for REPS in range(0,reps):
         
         
         f3file=open('f3stat_{}'.format(REPS),'r')
-            for line in f3file:
-                line=line.strip().split()
-                #print(line)
-                if line[0]=='result:':
-                    totalf3.append(float(line[4]))
-            f3file.close()
-            os.system('rm f3stat_{}'.format(REPS))
+        for line in f3file:
+            line=line.strip().split()
+            #print(line)
+            if line[0]=='result:':
+                totalf3.append(float(line[4]))
+        f3file.close()
+        os.system('rm f3stat_{}'.format(REPS))
         
     f3FINAL=open('f3FINAL_{}.txt'.fomrat(REPS),'w')
     for line in totalf3:
@@ -515,7 +513,7 @@ for REPS in range(0,reps):
     print('step 4 : {}'.format(elapsed_time_4/60)) 
         
 ###############################################################################################################################################
-  
+
     
 
 ###############################################################################################################################################
