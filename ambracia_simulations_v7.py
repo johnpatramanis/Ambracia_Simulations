@@ -419,6 +419,7 @@ for REPS in range(0,reps):
         end=0
         segments=[]
         segments.append(VCFinfo[str(k)][0][1])
+    totalf3=[]
     for j in range(0,len(segments)-1):
         print(segments[j])
         os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
@@ -491,7 +492,7 @@ for REPS in range(0,reps):
         os.system('rm f3stat_{}'.format(REPS))
         
     f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
-    totalf3=[]
+    
     for line in totalf3:
         for x in line:
             f3FINAL.write(str(x))
