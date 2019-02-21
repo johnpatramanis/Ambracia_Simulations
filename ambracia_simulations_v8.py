@@ -448,6 +448,7 @@ for REPS in range(0,reps):
                 segments.append(y[1])
                 begin=float(y[0])+100000.0
         
+        totalf3=[]
         for j in range(0,len(segments)-1):
             print(segments[j])
             os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
