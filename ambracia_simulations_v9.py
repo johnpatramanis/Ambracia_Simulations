@@ -152,7 +152,9 @@ for REPS in range(0,reps):
         with Manager() as manager:
             L=manager.list(L)
             processes=[]
-            for loop in range(1,100):
+####################################################################################################################################################################################
+            KOMMATIA=100
+            for loop in range(1,KOMMATIA):
                 p=Process(target=SIMULATE,args=(L,loop,samples,population_configurations,migration_matrix,demographic_events,))
                 processes.append(p)
                 
@@ -188,7 +190,7 @@ for REPS in range(0,reps):
 #Transform msprime format files to ms format
 #prepare for COMUS stats
 
-    MYRUN=99
+    MYRUN=KOMMATIA-1
     MAXRUNS=MYRUN
     MYRUN=1
     while MYRUN<=MAXRUNS:
@@ -214,7 +216,7 @@ for REPS in range(0,reps):
 
     MERGED=open('ms_allchroms_{}'.format(REPS),'w')
     for sample in range(0,len(samples)):
-        for chromosome in range(1,100):
+        for chromosome in range(1,KOMMATIA):
             file=open('ms_{}'.format(chromosome),'r')
             myline=0
             for line in file:
@@ -357,7 +359,7 @@ for REPS in range(0,reps):
 
     os.system('mv newtotal_chroms.vcf total_chroms.vcf')
 
-    os.system('plink --vcf total_chroms.vcf --make-bed --out simulation')
+    os.system('plink --vcf total_chroms.vcf --allow-extra-chr --make-bed --out simulation')
 
     
 ############################################################## RUN PCA ######################################################################
@@ -366,7 +368,7 @@ for REPS in range(0,reps):
     else:
         simulationfile='simulation-temporary'
     
-    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
+    os.system('plink --bfile {} --allow-extra-chr --pca 10 --out pcaofsimulation'.format(simulationfile))
     
 ############################################################## CLUSTERS OF PCA ###############################################################
     PCAFILE=open('pcaofsimulation.eigenvec','r')
@@ -415,7 +417,7 @@ for REPS in range(0,reps):
 
 ########################################### 3 Pop Test ######################################################################################
     totalf3=[]
-    for k in range(1,99):
+    for k in range(1,(KOMMATIA-1)):
         begin=0
         end=0
         segments=[]
@@ -427,7 +429,7 @@ for REPS in range(0,reps):
                 begin=float(y[0])+100000.0
         for j in range(0,len(segments)-1):    
             print(segments[j])    
-            os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))    
+            os.system('plink --vcf total_chroms.vcf  --allow-extra-chr --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))    
         
         
         
@@ -518,7 +520,7 @@ for REPS in range(0,reps):
     os.system('rm simulation.*')
     os.system('rm simulation-temporary.*')
     os.system('rm ms_prime_*')
-    for x in range(1,100):
+    for x in range(1,KOMMATIA):
         os.system('rm ms_{}'.format(x))
 
     elapsed_time_3=time.time() - start_time
