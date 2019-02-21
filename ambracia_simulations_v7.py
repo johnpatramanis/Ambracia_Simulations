@@ -422,7 +422,7 @@ for REPS in range(0,reps):
         segments.append(VCFinfo[str(k)][0][1])
         for y in VCFinfo[str(k)]:
             end=float(y[0])
-            if ((end-begin)>=10000000.0):
+            if ((end-begin)>=5000000.0):
                 segments.append(y[1])
                 begin=float(y[0])+100000.0
         for j in range(0,len(segments)-1):    
