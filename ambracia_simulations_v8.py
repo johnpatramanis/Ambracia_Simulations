@@ -487,7 +487,13 @@ for REPS in range(0,reps):
             
         IND.close
         newIND.close()
-            
+        SNP=open('simulation.snp','r')
+        snpcounter=0
+        for line in SNP:
+            snpcounter+=1
+        SNP.close()
+        
+        
         os.system('mv newsimulation.ind simulation.ind')
     
         Pop3=open('qp3Poplist','w')
@@ -515,7 +521,7 @@ for REPS in range(0,reps):
             line=line.strip().split()
             #print(line)
             if line[0]=='result:':
-                totalf3.append(float(line[4]))
+                totalf3.append([float(line[4]),snpcounter])
         f3file.close()
         os.system('rm f3stat_{}'.format(REPS))
 ############################################## FINAL WRITING #################################################################################
