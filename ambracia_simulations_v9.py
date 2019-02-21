@@ -188,7 +188,7 @@ for REPS in range(0,reps):
 #Transform msprime format files to ms format
 #prepare for COMUS stats
 
-    MYRUN=22
+    MYRUN=99
     MAXRUNS=MYRUN
     MYRUN=1
     while MYRUN<=MAXRUNS:
@@ -415,7 +415,7 @@ for REPS in range(0,reps):
 
 ########################################### 3 Pop Test ######################################################################################
     totalf3=[]
-    for k in range(1,22):
+    for k in range(1,99):
         begin=0
         end=0
         segments=[]
