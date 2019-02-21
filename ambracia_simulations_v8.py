@@ -17,8 +17,7 @@ start_time = time.time()
 reps=1000
 for REPS in range(0,reps):
 
-    totalf3=[]
-    
+
 ##############################################################################################################################################
 #Simulation Parameters
     
@@ -58,8 +57,8 @@ for REPS in range(0,reps):
             
     N_finale_colony=N_initial_colony / (math.exp(-r_colony * T_COLONIZATION))
     
-    ###############################################################################################################################
-    
+##################################################################################################################################
+#### MSPRIME SET-UP
 
 
     population_configurations = [
@@ -157,7 +156,8 @@ for REPS in range(0,reps):
         return j,L
     
     
-    
+###############################################################################################################################################
+# MULTITHREDING #
     L=[]
     if __name__ == '__main__':
         with Manager() as manager:
@@ -218,7 +218,7 @@ for REPS in range(0,reps):
             msprimefile.close()
         MYRUN+=1
 
-######################################################
+##############################################################################################################################################
 
 #MERGING OF FILES ####
 
@@ -241,7 +241,7 @@ for REPS in range(0,reps):
     
 ## os.system('rm ms_*.')
     
-#####################################################
+#############################################################################################################################################
 #Split each ms format chromosome file to 50kb chunks
 
     SNPS=open('variants_info.txt','r')
@@ -266,7 +266,7 @@ for REPS in range(0,reps):
             
         counter+=1
     SNPS.close()
-##################### CHUNKS TO BE REMOVED? ########################
+########################################## CHUNKS TO BE REMOVED? #############################################################################
     TO_BE_REMOVED=[]
     
     for x in range(0,len(CHUNKS)-1):
@@ -284,13 +284,11 @@ for REPS in range(0,reps):
     
     
     MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
-###########PRINT CHUNKS MS FORMAT FOR COMUSTATS
+#################################### PRINT CHUNKS MS FORMAT FOR COMUSTATS ####################################################################
     MS_ALL_CHROMS=[]
     for line in MS_MERGED:        
         line=line.strip().split()
         MS_ALL_CHROMS.append(line[0])
-    #print(len(MS_ALL_CHROMS))
-    #print(type(MS_ALL_CHROMS))
     counter=0
     begin=0
     opener=open('CHUNKED_{}'.format(REPS),'w')
@@ -311,7 +309,7 @@ for REPS in range(0,reps):
         begin=x[0]+1
         
         counter+=1
-##################REPRINT WITH GAPS OF 500kb BETWEEN CHUNKS ###############################################################
+##################################REPRINT WITH GAPS OF 500kb BETWEEN CHUNKS ######################################################################
         
     opener.close()
     elapsed_time_2=time.time() - start_time
@@ -333,7 +331,7 @@ for REPS in range(0,reps):
 
 
 
-#Arrange the vcf files into one, fix labels , bed file , transform to eigen, calculate pca and f stats
+#############Arrange the vcf files into one, fix labels , bed file , transform to eigen, calculate pca and f stats ############################
         
     os.system('rm mynewvcf*.vcf')
     os.system('bcftools concat -o total_chroms.vcf myvcf*.vcf')
@@ -438,7 +436,7 @@ for REPS in range(0,reps):
     
     
     
-    ####################################### 3 Pop Test ######################################################################################
+############################################# 3 Pop Test ######################################################################################
     for k in range(1,22):
         begin=0
         end=0
@@ -513,6 +511,7 @@ for REPS in range(0,reps):
         
         
         f3file=open('f3stat_{}'.format(REPS),'r')
+        totalf3=[]
         for line in f3file:
             line=line.strip().split()
             #print(line)
@@ -520,8 +519,8 @@ for REPS in range(0,reps):
                 totalf3.append(float(line[4]))
         f3file.close()
         os.system('rm f3stat_{}'.format(REPS))
-######################## FINAL WRITING ############################################
-    f3FINAL=open('f3FINAL_{}.txt'.fomrat(REPS),'w')
+############################################## FINAL WRITING #################################################################################
+    f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
     for line in totalf3:
         for x in line:
             f3FINAL.write(str(x))
