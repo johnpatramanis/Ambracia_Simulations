@@ -14,7 +14,7 @@ from multiprocessing import Process,Manager
 start_time = time.time()
 
 
-reps=1000
+reps=1
 for REPS in range(0,reps):
 
     
@@ -423,7 +423,8 @@ for REPS in range(0,reps):
         segments=[]
         segments.append(VCFinfo[str(k)][0][1])
         segments.append(VCFinfo[str(k)][-1][1])
-        for j in range(0,len(segments)-1):    
+        for j in range(0,len(segments)-1): 
+            print('####################################################################################################################')
             print(segments[j])    
             os.system('plink --vcf total_chroms.vcf  --chr-set {} --from {} --to {} --make-bed --out simulation'.format(KOMMATIA,segments[j],segments[j+1]))    
         
