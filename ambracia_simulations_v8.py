@@ -513,11 +513,11 @@ for REPS in range(0,reps):
         
         
         f3file=open('f3stat_{}'.format(REPS),'r')
-            for line in f3file:
-                line=line.strip().split()
-                #print(line)
-                if line[0]=='result:':
-                    totalf3.append(float(line[4]))
+        for line in f3file:
+            line=line.strip().split()
+            #print(line)
+            if line[0]=='result:':
+                totalf3.append(float(line[4]))
             f3file.close()
             os.system('rm f3stat_{}'.format(REPS))
 ######################## FINAL WRITING ############################################
