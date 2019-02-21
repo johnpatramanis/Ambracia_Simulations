@@ -153,7 +153,7 @@ for REPS in range(0,reps):
             L=manager.list(L)
             processes=[]
 ####################################################################################################################################################################################
-            KOMMATIA=100
+            KOMMATIA=90
             for loop in range(1,KOMMATIA):
                 p=Process(target=SIMULATE,args=(L,loop,samples,population_configurations,migration_matrix,demographic_events,))
                 processes.append(p)
@@ -368,7 +368,7 @@ for REPS in range(0,reps):
     else:
         simulationfile='simulation-temporary'
     
-    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
+    os.system('plink --bfile {} --chr-set {} --pca 10 --out pcaofsimulation'.format(simulationfile,KOMMATIA))
     
 ############################################################## CLUSTERS OF PCA ###############################################################
     PCAFILE=open('pcaofsimulation.eigenvec','r')
