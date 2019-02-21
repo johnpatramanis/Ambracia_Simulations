@@ -422,22 +422,16 @@ for REPS in range(0,reps):
         end=0
         segments=[]
         segments.append(VCFinfo[str(k)][0][1])
-        for y in VCFinfo[str(k)]:
-            end=float(y[0])
-            if ((end-begin)>=10000000.0):
-                segments.append(y[1])
-                begin=float(y[0])+100000.0
-        
-        for j in range(0,len(segments)-1):
-            print(segments[j])
-            os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
+    for j in range(0,len(segments)-1):
+        print(segments[j])
+        os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
 
         if os.path.isfile('simulation.bed'):
             simulationfile='simulation'
         else:
             simulationfile='simulation-temporary'
         parfile=open('parfile.txt','w')
-
+    
         parfile.write('genotypename:    {}.bed\n'.format(simulationfile))
         parfile.write('snpname:         {}.bim\n'.format(simulationfile))
         parfile.write('indivname:       {}.fam\n'.format(simulationfile))
@@ -446,15 +440,15 @@ for REPS in range(0,reps):
         parfile.write('snpoutname:      simulation.snp\n')
         parfile.write('indivoutname:    simulation.ind\n')
         parfile.write('pordercheck: NO')
-
+    
         parfile.close()
-
-
+    
+    
         os.system('convertf -p parfile.txt')
-
+    
         IND=open('simulation.ind','r')
         newIND=open('newsimulation.ind','w')
-
+    
         for line in IND:
             line=line.strip().split()
             label=re.search(r'([a-z]+)([0-9]+):[a-z]+[0-9]+',line[0])
@@ -469,60 +463,43 @@ for REPS in range(0,reps):
         newIND.close()
             
         os.system('mv newsimulation.ind simulation.ind')
-
+    
         Pop3=open('qp3Poplist','w')
         Pop3.write('locals metropolis apoikia')
         Pop3.close()
-
+    
         Parfilepop=open('3popparfile','w')
         Parfilepop.write('SSS: allmap\n')
         Parfilepop.write('indivname:   simulation.ind\n')
         Parfilepop.write('snpname:     simulation.snp\n')
         Parfilepop.write('genotypename: simulation.geno\n')
         Parfilepop.write('popfilename: qp3Poplist\n')
-
+    
         Parfilepop.close()
-
-
-        #SNP=open('simulation.snp','r')
-        #newSNP=open('newsimulation.snp','w')
-        #snpcounter=0
-        #for line in SNP:
-        #    if snpcounter<len(variants):
-        #        line=line.strip().split()
-        #        line[0]='rs{}'.format(snpcounter)
-        #        line[2]=str(variants[snpcounter])
-        #        line.append('\n')
-        #        line='\t'.join(line)
-        #        snpcounter+=1
-        #        newSNP.write(line)
-
-
-
-
-        #SNP.close
-        #newSNP.close
-
         os.system('mv newsimulation.snp simulation.snp')
         os.system('ls')
-
-
-
+    
+    
+    
         os.system('qp3Pop -p 3popparfile >f3stat_{}'.format(REPS))
         
         
         f3file=open('f3stat_{}'.format(REPS),'r')
+            for line in f3file:
+                line=line.strip().split()
+                #print(line)
+                if line[0]=='result:':
+                    totalf3.append(float(line[4]))
+            f3file.close()
+            os.system('rm f3stat_{}'.format(REPS))
         
-        for line in f3file:
-            line=line.strip().split()
-            #print(line)
-            if line[0]=='result:':
-                totalf3.append(float(line[4]))
-        f3file.close()
-    
-    
-    
-    
+    f3FINAL=open('f3FINAL_{}.txt'.fomrat(REPS),'w')
+    for line in totalf3:
+        for x in line:
+            f3FINAL.write(str(x))
+            f3FINAL.write('\t')
+        f3FINAL.write('\n')
+    f3FINAL.close()
     os.system('rm simulation.*')
     os.system('rm simulation-temporary.*')
     os.system('rm ms_prime_*')
@@ -542,5 +519,5 @@ for REPS in range(0,reps):
     
 
 ###############################################################################################################################################
-print(np.mean(totalf3))
+
 
