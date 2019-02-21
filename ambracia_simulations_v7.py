@@ -414,6 +414,7 @@ for REPS in range(0,reps):
 
 
 ########################################### 3 Pop Test ######################################################################################
+    totalf3=[]
     for k in range(1,22):
         begin=0
         end=0
@@ -424,8 +425,6 @@ for REPS in range(0,reps):
             if ((end-begin)>=10000000.0):
                 segments.append(y[1])
                 begin=float(y[0])+100000.0
-            
-        totalf3=[]
         for j in range(0,len(segments)-1):    
             print(segments[j])    
             os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))    
