@@ -109,7 +109,7 @@ for REPS in range(0,reps):
         dd = msprime.simulate(samples=samples,
             population_configurations=population_configurations,
             migration_matrix=migration_matrix,mutation_rate=1e-8,
-            demographic_events=demographic_events,length=1000000, recombination_rate=2e-8)
+            demographic_events=demographic_events,length=50000000, recombination_rate=2e-8)
         outfile=open('ms_prime_{}'.format(j),'w')
         for var in dd.variants():
             L.append([int(j),var.index,var.position])
