@@ -368,7 +368,7 @@ for REPS in range(0,reps):
     else:
         simulationfile='simulation-temporary'
     
-    os.system('plink --bfile {} --chr-set {} --pca 10 --out pcaofsimulation'.format(simulationfile,KOMMATIA))
+    os.system('plink --bfile {} --pca 10 --out pcaofsimulation'.format(simulationfile))
     
 ############################################################## CLUSTERS OF PCA ###############################################################
     PCAFILE=open('pcaofsimulation.eigenvec','r')
