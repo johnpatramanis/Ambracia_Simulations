@@ -422,11 +422,7 @@ for REPS in range(0,reps):
         end=0
         segments=[]
         segments.append(VCFinfo[str(k)][0][1])
-        for y in VCFinfo[str(k)]:
-            end=float(y[0])
-            if ((end-begin)>=10000000.0):
-                segments.append(y[1])
-                begin=float(y[0])+100000.0
+        segments.append(VCFinfo[str(k)][-1][1])
         for j in range(0,len(segments)-1):    
             print(segments[j])    
             os.system('plink --vcf total_chroms.vcf  --chr-set {} --from {} --to {} --make-bed --out simulation'.format(KOMMATIA,segments[j],segments[j+1]))    
