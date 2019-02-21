@@ -17,7 +17,6 @@ start_time = time.time()
 reps=1000
 for REPS in range(0,reps):
 
-    totalf3=[]
     
 ##############################################################################################################################################
 #Simulation Parameters
@@ -491,7 +490,8 @@ for REPS in range(0,reps):
         f3file.close()
         os.system('rm f3stat_{}'.format(REPS))
         
-    f3FINAL=open('f3FINAL_{}.txt'.fomrat(REPS),'w')
+    f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
+    totalf3=[]
     for line in totalf3:
         for x in line:
             f3FINAL.write(str(x))
