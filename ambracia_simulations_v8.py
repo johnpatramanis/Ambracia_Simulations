@@ -518,8 +518,8 @@ for REPS in range(0,reps):
             #print(line)
             if line[0]=='result:':
                 totalf3.append(float(line[4]))
-            f3file.close()
-            os.system('rm f3stat_{}'.format(REPS))
+        f3file.close()
+        os.system('rm f3stat_{}'.format(REPS))
 ######################## FINAL WRITING ############################################
     f3FINAL=open('f3FINAL_{}.txt'.fomrat(REPS),'w')
     for line in totalf3:
