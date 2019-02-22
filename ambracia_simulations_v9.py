@@ -248,31 +248,13 @@ for REPS in range(0,reps):
         line=line.strip().split()
         POSITIONS.append(line[2])
         end=float(line[2])
-        if (end-begin>=500000.0) :
-            CHUNKS.append([counter,begin,end])
-            begin=float(line[2])
         if chr!=int(line[0]):
+            CHUNKS.append([counter,begin,end])
             begin=0
             chr=int(line[0])
             
         counter+=1
     SNPS.close()
-##################### CHUNKS TO BE REMOVED? ########################
-    TO_BE_REMOVED=[]
-    
-    for x in range(0,len(CHUNKS)-1):
-        #if ((CHUNKS[x+1][1] - CHUNKS[x][2]) <= 500000.0) and (CHUNKS[x] not in TO_BE_REMOVED) and (CHUNKS[x+1][1] - CHUNKS[x][2] >= 0):
-        if x%2!=0:
-            TO_BE_REMOVED.append((CHUNKS[x+1]))
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     MS_MERGED=open('ms_allchroms_{}'.format(REPS),'r')    
 ###########PRINT CHUNKS MS FORMAT FOR COMUSTATS
@@ -421,8 +403,9 @@ for REPS in range(0,reps):
         begin=0
         end=0
         segments=[]
-        segments.append(VCFinfo[str(k)][0][1])
-        segments.append(VCFinfo[str(k)][-1][1])
+        segments.append(sorted(VCFinfo[str(k)])[0][1])
+        segments.append(sorted(VCFinfo[str(k)])[-1][1])
+        print('############################################################',segments)
         for j in range(0,len(segments)-1): 
             print('####################################################################################################################')
             print(segments[j])    
