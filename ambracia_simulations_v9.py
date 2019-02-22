@@ -287,7 +287,7 @@ for REPS in range(0,reps):
     opener.close()
     elapsed_time_2=time.time() - start_time
     opener=open('CHUNKED_{}'.format(REPS),'r')
-    opener2=open('CHUNKED_500kb_gaps_{}'.format(REPS),'w')
+    opener2=open('CHUNKED_for_Comus_{}'.format(REPS),'w')
     line_counter=0
     for line in opener:
         if line=="//\n":
@@ -526,7 +526,7 @@ for REPS in range(0,reps):
     print('step 3 : {}'.format(elapsed_time_3/60))        
 ################################################################ RUN COMUSTATS #################################################################
 
-    os.system('CoMuStats -input CHUNKED_500kb_gaps_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
+    os.system('CoMuStats -input CHUNKED_{} -npop 3 20 20 20 -ms > COMUSTATS_{}'.format(REPS,REPS))
     elapsed_time_4=time.time() - start_time
     print('step 4 : {}'.format(elapsed_time_4/60)) 
         
