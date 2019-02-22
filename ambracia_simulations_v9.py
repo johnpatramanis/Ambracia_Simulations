@@ -449,16 +449,34 @@ for REPS in range(0,reps):
             IND.close
             newIND.close()
             SNP=open('simulation.snp','r')
+            newSNP=open('newsimulation.snp','w')
             snpcounter=0
+    #for line in SNP:
+    #    if snpcounter<len(variants):
+    #        line=line.strip().split()
+    #        line[0]='rs{}'.format(snpcounter)
+    #        line[2]=str(variants[snpcounter])
+    #        line.append('\n')
+    #        line='\t'.join(line)
+    #        snpcounter+=1
+    #        newSNP.write(line)
+            
+            
             for line in SNP:
+                line=line.strip().split()
                 snpcounter+=1
+                line[1]='22'
+                line.append('\n')
+                line='\t'.join(line)
+                newSNP.write(line)
             SNP.close()
+            newSNP.close()
             
             
             
             
-                
             os.system('mv newsimulation.ind simulation.ind')
+            os.system('mv newsimulation.snp simulation.snp')
         
             Pop3=open('qp3Poplist','w')
             Pop3.write('locals metropolis apoikia')
@@ -491,6 +509,7 @@ for REPS in range(0,reps):
             
     f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
     
+    print(totalf3)
     for line in totalf3:
         for x in line:
             f3FINAL.write(str(x))
