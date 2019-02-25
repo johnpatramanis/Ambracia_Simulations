@@ -37,7 +37,7 @@ for REPS in range(1,500):
     
     PARAM_FILE=open('PARAMETERS_{}'.format(REPS),'r')
     PCA_CLUST_FILE=open('PCA_CLUSTERING_{}'.format(REPS),'r')
-    F3FILE=open('f3FINAL_.txt{}'.format(REPS),'r')
+    F3FILE=open('f3FINAL_{}.txt'.format(REPS),'r')
     COMUS_FILE=open('COMUSTATS_{}'.format(REPS),'r')
     
     ###########################################################################################################################################
