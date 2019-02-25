@@ -68,8 +68,8 @@ for REPS in range(54,70):
         else:
             line=line.strip()
             mysearch=re.findall(r'[0-9]\.[0-9]+',line)
-            migration_locals_metropolis.append(float(mysearch[1]))
-            migration_metropolis_locals.append(float(mysearch[3]))
+            migration_locals_metropolis.append(float(mysearch[0]))
+            migration_metropolis_locals.append(float(mysearch[2]))
             migration_local_colony.append(float(mysearch[4]))
             migration_metropolis_colony.append(float(mysearch[5]))
             
