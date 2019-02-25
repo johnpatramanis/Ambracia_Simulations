@@ -63,7 +63,7 @@ for REPS in range(1,500):
             pass
     
     for line in PCA_CLUST_FILE:
-        line.strip().split()
+        line.strip().split('\t')
         PCA_in_dist_locals.append(float(line[0]))
         PCA_in_dist_metropolis.append(float(line[1]))
         PCA_in_dist_colony.append(float(line[2]))
