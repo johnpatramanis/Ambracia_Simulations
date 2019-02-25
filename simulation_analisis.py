@@ -21,9 +21,9 @@ r_colony=[]
 PCA_in_dist_locals=[]
 PCA_in_dist_metropolis=[]
 PCA_in_dist_colony=[]
-PCA_in_out_locals_metro=[]
-PCA_in_out_locals_colony=[]
-PCA_in_out_metropolis_colony=[]
+PCA_out_locals_metro=[]
+PCA_out_locals_colony=[]
+PCA_out_metropolis_colony=[]
 MEAN_F3=[]
     
     
@@ -63,9 +63,9 @@ for REPS in range(1,500):
         PCA_in_dist_locals.append(line[0])
         PCA_in_dist_metropolis.append(line[1])
         PCA_in_dist_colony.append(line[2])
-        PCA_in_out_locals.append(line[3])
-        PCA_in_out_locals_colony.append(line[4])
-        PCA_in_out_metropolis_colony.append(line[5])
+        PCA_out_locals_metro.append(line[3])
+        PCA_out_locals_colony.append(line[4])
+        PCA_out_metropolis_colony.append(line[5])
         
         
     
