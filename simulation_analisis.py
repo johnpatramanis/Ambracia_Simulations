@@ -41,7 +41,7 @@ migration_metropolis_locals=[]
     
     
 
-for REPS in range(1,500):
+for REPS in range(54,70):
     ######################################################################################################################################3###
     #open files
     
@@ -52,9 +52,9 @@ for REPS in range(1,500):
     
     ###########################################################################################################################################
     #load parameters
-    count=0
+    
     for line in PARAM_FILE:
-        if count==0:
+        if line[0]==str(1) or line[0]==str(0):
             line=line.strip().split()
             colonizers.append(int(line[0]))
             N_locals.append(int(line[1]))
@@ -64,10 +64,17 @@ for REPS in range(1,500):
             r_locals.append(float(line[5]))
             r_metropolis.append(float(line[6]))
             r_colony.append(float(line[7]))
-            count+=1
-        if count>=0:
-            migrations_numbers=re.search(r'[0-9]+.+[0-9]+.+[0-9]+.+[0-9]+.+[0-9]+.+[0-9]+',line)
-            pop=migrations_numbers.group(1)
+            
+        else:
+            line=line.strip()
+            mysearch=re.findall(r'[0-9]\.[0-9]+',line)
+            migration_locals_metropolis.append(float(mysearch[1]))
+            migration_metropolis_locals.append(float(mysearch[3]))
+            migration_local_colony.append(float(mysearch[4]))
+            migration_metropolis_colony.append(float(mysearch[5]))
+            
+            #pop=migrations_numbers.group(1)
+            #print(pop)
             
     
     for line in PCA_CLUST_FILE:
@@ -102,7 +109,7 @@ for REPS in range(1,500):
     
     
     
-parameters=[[colonizers,'who_colonized'],[N_locals,'N-locals'],[N_metropolis,'N_metropolis'],[N_initial_colony,'N_initial_colony'],[N_final_colony,'N_final_colony'],[r_locals,'r_locals'],[r_metropolis,'r_locals'],[r_colony,'r_colony']]
+parameters=[[migration_locals_metropolis,'migration_locals_from_metropolis'],[migration_metropolis_locals,'migration_metropolis_from_locals'],[migration_local_colony,'migration_local_from_colony'],[migration_metropolis_colony,'migration_metropolis_from_colony'],[colonizers,'who_colonized'],[N_locals,'N-locals'],[N_metropolis,'N_metropolis'],[N_initial_colony,'N_initial_colony'],[N_final_colony,'N_final_colony'],[r_locals,'r_locals'],[r_metropolis,'r_locals'],[r_colony,'r_colony']]
 metrics=[[PCA_in_dist_locals,'PCA_in_dist_locals'],[PCA_in_dist_metropolis,'PCA_in_dist_metropolis'],[PCA_in_dist_colony,'PCA_in_dist_colony'],[PCA_out_locals_metro,'PCA_out_locals_metro'],[PCA_out_locals_colony,'PCA_out_locals_colony'],[PCA_out_metropolis_colony,'PCA_out_metropolis_colony'],[MEAN_F3,'F3_mean']]
 
 CORRELATION=[]
