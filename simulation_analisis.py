@@ -8,6 +8,10 @@ import re
 import random
 import sys
 import os.path
+from pydoc import help
+from scipy.stats.stats import pearsonr
+
+
 
 
 colonizers=[]
@@ -60,12 +64,12 @@ for REPS in range(1,500):
     
     for line in PCA_CLUST_FILE:
         line.strip().split()
-        PCA_in_dist_locals.append(line[0])
-        PCA_in_dist_metropolis.append(line[1])
-        PCA_in_dist_colony.append(line[2])
-        PCA_out_locals_metro.append(line[3])
-        PCA_out_locals_colony.append(line[4])
-        PCA_out_metropolis_colony.append(line[5])
+        PCA_in_dist_locals.append(float(line[0]))
+        PCA_in_dist_metropolis.append(float(line[1]))
+        PCA_in_dist_colony.append(float(line[2]))
+        PCA_out_locals_metro.append(float(line[3]))
+        PCA_out_locals_colony.append(float(line[4]))
+        PCA_out_metropolis_colony.append(float(line[5]))
         
         
     
@@ -92,5 +96,5 @@ for REPS in range(1,500):
     
     
     
-    
+print(pearsonr(N_final_colony,PCA_in_dist_colony))
 print(len(MEAN_F3),len(PCA_in_dist_colony),len(N_final_colony))
