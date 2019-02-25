@@ -104,5 +104,8 @@ for x in parameters:
         CORRELATION.append([pearsonr(x[0],y[0]),x[1],y[1]])
         
 CORELATION_FILE=open('CORRELATION_FILE','w')
-for writer in CORRELATION.sort(key=lambda x: x[0][1]):
+CORELATION_FILE.write('Pearson_value'+'\t'+'P-value'+'\t'+'Parameter'+'\t'+'Metric'+'\n')
+
+
+for writer in sorted(CORRELATION,key=lambda x: x[0][1]):
     CORELATION_FILE.write(str(writer[0][0])+'\t'+str(writer[0][1])+'\t'+str(writer[1])+'\t'+str(writer[2])+'\n')
