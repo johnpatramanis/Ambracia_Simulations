@@ -92,22 +92,6 @@ for REPS in range(1,500):
     COMUS_FILE.close()
     
     
-colonizers=[]
-N_locals=[]
-N_metropolis=[]
-N_initial_colony=[]
-N_final_colony=[]
-r_locals=[]
-r_metropolis=[]
-r_colony=[]
-PCA_in_dist_locals=[]
-PCA_in_dist_metropolis=[]
-PCA_in_dist_colony=[]
-PCA_out_locals_metro=[]
-PCA_out_locals_colony=[]
-PCA_out_metropolis_colony=[]
-MEAN_F3=[]
-
     
     
 parameters=[[colonizers,'who_colonized'],[N_locals,'N-locals'],[N_metropolis,'N_metropolis'],[N_initial_colony,'N_initial_colony'],[N_final_colony,'N_final_colony'],[r_locals,'r_locals'],[r_metropolis,'r_locals'],[r_colony,'r_colony']]
