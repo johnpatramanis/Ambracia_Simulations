@@ -103,5 +103,6 @@ for x in parameters:
     for y in metrics:
         CORRELATION.append([pearsonr(x[0],y[0]),x[1],y[1]])
         
-print(sorted(CORRELATION))
-        
+CORELATION_FILE=open('CORRELATION_FILE','w')
+for writer in CORRELATION.sort(key=x[0][1]):
+    CORELATION_FILE.write(str(writer[0][0])+'\t'+str(writer[0][1])+'\t'+str(writer[1])+'\t'+str(writer[2])+'\n')
