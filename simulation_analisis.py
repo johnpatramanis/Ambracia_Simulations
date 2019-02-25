@@ -29,6 +29,12 @@ PCA_out_locals_metro=[]
 PCA_out_locals_colony=[]
 PCA_out_metropolis_colony=[]
 MEAN_F3=[]
+migration_local_colony=[]
+migration_metropolis_colony=[]
+migration_locals_metropolis=[]
+migration_metropolis_locals=[]
+    
+    
     
     
     
@@ -60,7 +66,7 @@ for REPS in range(1,500):
             r_colony.append(float(line[7]))
             count+=1
         if count>=0:
-            pass
+            print(line)
     
     for line in PCA_CLUST_FILE:
         line=line.strip().split('\t')
