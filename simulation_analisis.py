@@ -45,7 +45,7 @@ for REPS in range(0,500):
     count=0
     for line in PARAM_FILE:
         line=line.strip().split()
-        if count=0:
+        if count==0:
             colonizers.append(int(line[0]))
             N_locals.append(int(line[1]))
             N_metropolis.append(int(line[2]))
@@ -55,7 +55,7 @@ for REPS in range(0,500):
             r_metropolis.append(float(line[6]))
             r_colony.append(float(line[7]))
             count+=1
-        if count>0:
+        if count>=0:
             pass
     
     for line in PCA_CLUST_FILE:
