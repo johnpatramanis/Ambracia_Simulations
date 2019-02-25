@@ -54,8 +54,8 @@ for REPS in range(1,500):
     #load parameters
     count=0
     for line in PARAM_FILE:
-        line=line.strip().split()
         if count==0:
+            line=line.strip().split()
             colonizers.append(int(line[0]))
             N_locals.append(int(line[1]))
             N_metropolis.append(int(line[2]))
@@ -66,7 +66,9 @@ for REPS in range(1,500):
             r_colony.append(float(line[7]))
             count+=1
         if count>=0:
-            print(line)
+            migrations_numbers=re.search(r'[0-9]+.+[0-9]+.+[0-9]+.+[0-9]+.+[0-9]+.+[0-9]+',line)
+            pop=migrations_numbers.group(1)
+            
     
     for line in PCA_CLUST_FILE:
         line=line.strip().split('\t')
