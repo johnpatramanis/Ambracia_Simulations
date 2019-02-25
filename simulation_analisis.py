@@ -72,7 +72,10 @@ for REPS in range(1,500):
     f3mean=[]
     for line in F3FILE:
         line.strip().split()
-        f3mean.append(float(line[0]))
+        if line[0]=='-':
+            f3mean.append((-1)*float(line[1]))
+        else:
+            f3mean.append(float(line[0]))
     MEAN_F3.append(np.mean(f3mean))
     
     #for line in COMUS_FILE:
