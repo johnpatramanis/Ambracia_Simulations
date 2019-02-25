@@ -10,21 +10,21 @@ import sys
 import os.path
 
 
-    colonizers=[]
-    N_locals=[]
-    N_metropolis=[]
-    N_initial_colony=[]
-    N_final_colony=[]
-    r_locals=[]
-    r_metropolis=[]
-    r_colony=[]
-    PCA_in_dist_locals=[]
-    PCA_in_dist_metropolis=[]
-    PCA_in_dist_colony=[]
-    PCA_in_out_locals_metro=[]
-    PCA_in_out_locals_colony=[]
-    PCA_in_out_metropolis_colony=[]
-    MEAN_F3=[]
+colonizers=[]
+N_locals=[]
+N_metropolis=[]
+N_initial_colony=[]
+N_final_colony=[]
+r_locals=[]
+r_metropolis=[]
+r_colony=[]
+PCA_in_dist_locals=[]
+PCA_in_dist_metropolis=[]
+PCA_in_dist_colony=[]
+PCA_in_out_locals_metro=[]
+PCA_in_out_locals_colony=[]
+PCA_in_out_metropolis_colony=[]
+MEAN_F3=[]
     
     
     
@@ -78,4 +78,16 @@ for REPS in range(0,500):
     #for line in COMUS_FILE:
     #    line.strip().split()
     
-    print(len(MEAN_F3),len(PCA_in_dist_colony),len(N_final_colony))
+    
+    PARAM_FILE.close()
+    PCA_CLUST_FILE.close()
+    F3FILE.close()
+    COMUS_FILE.close()
+    
+    
+    
+    
+    
+    
+    
+print(len(MEAN_F3),len(PCA_in_dist_colony),len(N_final_colony))
