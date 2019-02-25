@@ -63,7 +63,7 @@ for REPS in range(1,500):
             pass
     
     for line in PCA_CLUST_FILE:
-        line.strip().split('\t')
+        line=line.strip().split('\t')
         PCA_in_dist_locals.append(float(line[0]))
         PCA_in_dist_metropolis.append(float(line[1]))
         PCA_in_dist_colony.append(float(line[2]))
@@ -75,7 +75,7 @@ for REPS in range(1,500):
     
     f3mean=[]
     for line in F3FILE:
-        line.strip().split()
+        line=line.strip().split()
         if line[0]=='-':
             f3mean.append((-1)*float(line[1]))
         else:
