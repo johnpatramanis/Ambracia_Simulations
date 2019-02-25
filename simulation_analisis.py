@@ -92,9 +92,32 @@ for REPS in range(1,500):
     COMUS_FILE.close()
     
     
+colonizers=[]
+N_locals=[]
+N_metropolis=[]
+N_initial_colony=[]
+N_final_colony=[]
+r_locals=[]
+r_metropolis=[]
+r_colony=[]
+PCA_in_dist_locals=[]
+PCA_in_dist_metropolis=[]
+PCA_in_dist_colony=[]
+PCA_out_locals_metro=[]
+PCA_out_locals_colony=[]
+PCA_out_metropolis_colony=[]
+MEAN_F3=[]
+
     
     
-    
-    
-print(pearsonr(N_final_colony,PCA_in_dist_colony))
-print(len(MEAN_F3),len(PCA_in_dist_colony),len(N_final_colony))
+parameters=[[colonizers,'who_colonized'],[N_locals,'N-locals'],[N_metropolis,'N_metropolis'],[N_initial_colony,'N_initial_colony'],[N_final_colony,'N_final_colony'],[r_locals,'r_locals'],[r_metropolis,'r_locals'],[r_colony,'r_colony']]
+metrics=[[PCA_in_dist_locals,'PCA_in_dist_locals'],[PCA_in_dist_metropolis,'PCA_in_dist_metropolis'],[PCA_in_dist_colony,'PCA_in_dist_colony'],[PCA_out_locals_metro,'PCA_out_locals_metro'],[PCA_out_locals_colony,'PCA_out_locals_colony'],[PCA_out_metropolis_colony,'PCA_out_metropolis_colony'],[MEAN_F3,'F3_mean']]
+
+CORRELATION=[]
+
+for x in parameters:
+    for y in metrics:
+        CORRELATION.append([pearsonr(x[0],y[0]),x[1],y[1]])
+        
+print(sorted(CORRELATION))
+        
