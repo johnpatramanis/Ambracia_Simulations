@@ -152,7 +152,7 @@ for crossv in range(0,100):
     mychosen_labels=[labels[x] for x in range(0,len(labels)) if x in mychosen]
     
     
-    clf.fit([x for x in params if x not in mychosen_params],[x for x in labels if x not in mychosen_labels])
+    clf.fit( [params[x] for x in range(0,len(params)) if x not in mychosen],[labels[x] for x in range(0,len(labels)) if x not in mychosen])
     for x in range(0,len(mychosen_params)):
         print(clf.predict(mychosen_params[x]))
     
