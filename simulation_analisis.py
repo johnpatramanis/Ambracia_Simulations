@@ -146,11 +146,13 @@ for i in range(0,len(labels)):
 clf = svm.SVC(gamma='scale')
 
 for crossv in range(0,100):
+
     mychosen=[random.choice([x for x in range(0,600)]) for y in range(0,6)]
     mychosen_params=[params[x] for x in range(0,len(params)) if x in mychosen]
     mychosen_labels=[labels[x] for x in range(0,len(labels)) if x in mychosen]
     
-    print(mychosen_labels,mychosen_params)
     
-    #clf.fit([x for x in parameters if x not in],labels)
-
+    clf.fit([x for x in params if x not in mychosen_params],[x for x in labels if x not in mychosen_labels])
+    for x in range(0,len(mychosen_params)):
+        print(clf.predict(mychosen_params[x]))
+    
