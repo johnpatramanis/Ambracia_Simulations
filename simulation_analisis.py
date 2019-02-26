@@ -203,7 +203,7 @@ for crossv in range(0,100):
     
     clf.fit( [params[x] for x in range(0,len(params)) if x not in mychosen],[labels[x] for x in range(0,len(labels)) if x not in mychosen])
     for x in range(0,len(mychosen_params)):
-        if int(clf.predict([mychosen_params[x])[0]])==int(mychosen_labels[x]):
+        if int(clf.predict([mychosen_params[x]])[0])==int(mychosen_labels[x]):
             Mycrossscore+=1
         allreps+=1
 print(Mycrossscore/allreps)
