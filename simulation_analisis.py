@@ -131,7 +131,8 @@ for REPS in range(1,600):
     COMMUSTATS.append([])
     for line in COMUS_FILE:
         line.strip().split()
-        COMMUSTATS[-1].append(line)
+        if line[0]!='ThetaPi':
+            COMMUSTATS[-1].append(line)
         
         
         
