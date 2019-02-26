@@ -146,7 +146,7 @@ for i in range(0,len(y)):
 clf = svm.SVC(gamma='scale')
 
 for crossv in range(0,100):
-    mychosen=random.choice([x for x in range(0,600)],6)
+    mychosen=[random.choice([x for x in range(0,600)]) for y in range(0,6)]
     print(mychosen)
     #clf.fit(params,labels)
 
