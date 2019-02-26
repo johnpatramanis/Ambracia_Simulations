@@ -131,7 +131,7 @@ for writer in sorted(CORRELATION,key=lambda x: x[0][1]):
     CORELATION_FILE.write(str(writer[0][0])+'\t'+str(writer[0][1])+'\t'+str(writer[1])+'\t'+str(writer[2])+'\n')
 
     
-y=[x[0] for x in parameters]
+y=colonizers
 x=[]
 for i in range(0,len(y)):
     k=[]
@@ -139,8 +139,9 @@ for i in range(0,len(y)):
         k.append(j[0][i])
     x.append(k)
     
-print(y)
-print(x)
+print(len(y),y[0:10])
+print(len(x),x[0:10])
+
     
     
 
