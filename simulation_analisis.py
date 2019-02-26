@@ -144,7 +144,8 @@ for i in range(0,len(labels)):
     
 
 clf = svm.SVC(gamma='scale')
-
+Mycrossscore=0
+allreps=0
 for crossv in range(0,100):
 
     mychosen=[random.choice([x for x in range(0,600)]) for y in range(0,6)]
@@ -154,5 +155,8 @@ for crossv in range(0,100):
     
     clf.fit( [params[x] for x in range(0,len(params)) if x not in mychosen],[labels[x] for x in range(0,len(labels)) if x not in mychosen])
     for x in range(0,len(mychosen_params)):
-        print(clf.predict(mychosen_params[x]))
+        if int(clf.predict(mychosen_params[x])[0])==int(mychosen_labels[x]):
+            Mycrossscore+=1
+        allreps+=1
+print(Mycrossscore/allreps)
     
