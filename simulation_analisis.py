@@ -34,7 +34,34 @@ MEAN_F3=[]
 migration_local_colony=[]
 migration_metropolis_colony=[]
 migration_locals_metropolis=[]
+##COMUSTATS
 migration_metropolis_locals=[]
+ThetaPi=[]
+ThetaW=[]
+StochVarPi=[]
+SamplingVarPi=[]
+VarThetaW=[]
+NumPoly=[]
+NumMut=[]
+NumSingl=[]
+TajimaD=[]
+Hprime=[]
+Dnomin=[]
+FuLiDstar=[]
+FuLiFstar=[]
+DandVK=[]
+WallsB=[]
+WallsBprime=[]
+WallsQ=[]
+HudsonsC=[]
+Fst=[]
+
+
+
+
+
+
+
 COMMUSTATS=[]
     
     
@@ -99,8 +126,28 @@ for REPS in range(1,600):
             f3mean.append(float(line[0]))
     MEAN_F3.append(np.mean(f3mean))
     
+    
+    
+    COMMUSTATS.append([])
     for line in COMUS_FILE:
         line.strip().split()
+        COMMUSTATS[-1].append(line)
+        
+        
+        
+        
+        
+    print(len(COMMUSTATS),len(COMMUSTATS[0]))
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     
     
@@ -155,7 +202,7 @@ for crossv in range(0,100):
     
     clf.fit( [params[x] for x in range(0,len(params)) if x not in mychosen],[labels[x] for x in range(0,len(labels)) if x not in mychosen])
     for x in range(0,len(mychosen_params)):
-        if int(clf.predict(mychosen_params[x])[0])==int(mychosen_labels[x]):
+        if int(clf.predict([mychosen_params[x])[0]])==int(mychosen_labels[x]):
             Mycrossscore+=1
         allreps+=1
 print(Mycrossscore/allreps)
