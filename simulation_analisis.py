@@ -133,7 +133,7 @@ for writer in sorted(CORRELATION,key=lambda x: x[0][1]):
     
 labels=colonizers
 params=[]
-for i in range(0,len(y)):
+for i in range(0,len(labels)):
     k=[]
     for j in metrics:
         k.append(j[0][i])
