@@ -10,6 +10,8 @@ import sys
 import os.path
 from pydoc import help
 from scipy.stats.stats import pearsonr
+from sklearn import svm
+
 
 
 
@@ -33,7 +35,7 @@ migration_local_colony=[]
 migration_metropolis_colony=[]
 migration_locals_metropolis=[]
 migration_metropolis_locals=[]
-    
+COMMUSTATS=[]
     
     
     
@@ -97,8 +99,11 @@ for REPS in range(54,70):
             f3mean.append(float(line[0]))
     MEAN_F3.append(np.mean(f3mean))
     
-    #for line in COMUS_FILE:
-    #    line.strip().split()
+    for line in COMUS_FILE:
+        line.strip().split()
+        
+    
+    
     
     
     PARAM_FILE.close()
@@ -109,7 +114,7 @@ for REPS in range(54,70):
     
     
     
-parameters=[[migration_locals_metropolis,'migration_locals_from_metropolis'],[migration_metropolis_locals,'migration_metropolis_from_locals'],[migration_local_colony,'migration_local_from_colony'],[migration_metropolis_colony,'migration_metropolis_from_colony'],[colonizers,'who_colonized'],[N_locals,'N-locals'],[N_metropolis,'N_metropolis'],[N_initial_colony,'N_initial_colony'],[N_final_colony,'N_final_colony'],[r_locals,'r_locals'],[r_metropolis,'r_locals'],[r_colony,'r_colony']]
+parameters=[[colonizers,'who_colonized'],[migration_locals_metropolis,'migration_locals_from_metropolis'],[migration_metropolis_locals,'migration_metropolis_from_locals'],[migration_local_colony,'migration_local_from_colony'],[migration_metropolis_colony,'migration_metropolis_from_colony'],[N_locals,'N-locals'],[N_metropolis,'N_metropolis'],[N_initial_colony,'N_initial_colony'],[N_final_colony,'N_final_colony'],[r_locals,'r_locals'],[r_metropolis,'r_locals'],[r_colony,'r_colony']]
 metrics=[[PCA_in_dist_locals,'PCA_in_dist_locals'],[PCA_in_dist_metropolis,'PCA_in_dist_metropolis'],[PCA_in_dist_colony,'PCA_in_dist_colony'],[PCA_out_locals_metro,'PCA_out_locals_metro'],[PCA_out_locals_colony,'PCA_out_locals_colony'],[PCA_out_metropolis_colony,'PCA_out_metropolis_colony'],[MEAN_F3,'F3_mean']]
 
 CORRELATION=[]
@@ -124,3 +129,21 @@ CORELATION_FILE.write('Pearson_value'+'\t'+'P-value'+'\t'+'Parameter'+'\t'+'Metr
 
 for writer in sorted(CORRELATION,key=lambda x: x[0][1]):
     CORELATION_FILE.write(str(writer[0][0])+'\t'+str(writer[0][1])+'\t'+str(writer[1])+'\t'+str(writer[2])+'\n')
+
+    
+y=[x[0] for x in parameters]
+x=[]
+for i in range(0,len(y)):
+    k=[]
+    for j in metrics:
+        k.append(j[0][i])
+    x.append(k)
+    
+print(y)
+print(x)
+    
+    
+
+clf = svm.SVC(gamma='scale')
+clf.fit(x, y)
+
