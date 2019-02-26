@@ -131,20 +131,22 @@ for writer in sorted(CORRELATION,key=lambda x: x[0][1]):
     CORELATION_FILE.write(str(writer[0][0])+'\t'+str(writer[0][1])+'\t'+str(writer[1])+'\t'+str(writer[2])+'\n')
 
     
-y=colonizers
-x=[]
+labels=colonizers
+params=[]
 for i in range(0,len(y)):
     k=[]
     for j in metrics:
         k.append(j[0][i])
-    x.append(k)
+    params.append(k)
     
-print(len(y),y[0:10])
-print(len(x),x[0:10])
 
     
     
 
 clf = svm.SVC(gamma='scale')
-clf.fit(x, y)
+
+for crossv in range(0,100):
+    mychosen=random.choice([x for x in range(0,600)],6)
+    print(mychosen)
+    #clf.fit(params,labels)
 
