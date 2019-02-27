@@ -19,7 +19,9 @@ while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0)
   
   ParametersList[j] <- strsplit(oneLine,'\t')
   j <- j + 1
+
   
+    
   
 } 
 close(con)  
@@ -49,6 +51,9 @@ while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0)
   } 
 close(con)
 
+
+
+
 ##########################################################
 #f3 input
 
@@ -66,6 +71,13 @@ while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0)
   
 } 
 close(con)
+
+
+
+
+
+
+
 
 
 #########################################################
