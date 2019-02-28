@@ -415,6 +415,7 @@ for REPS in range(0,reps):
 
 ########################################### 3 Pop Test ######################################################################################
     totalf3=[]
+    f3chunkscoutner=0
     for k in range(1,22):
         begin=0
         end=0
@@ -422,9 +423,11 @@ for REPS in range(0,reps):
         segments.append(VCFinfo[str(k)][0][1])
         for y in VCFinfo[str(k)]:
             end=float(y[0])
-            if ((end-begin)>=5000000.0):
+            f3chunkscoutner+=1
+            if ((end-begin)>=1500000.0) or f3chunkscoutner>=3000:
                 segments.append(y[1])
                 begin=float(y[0])+100000.0
+                f3chunkscoutner=0
         for j in range(0,len(segments)-1):    
             print(segments[j])    
             os.system('plink --vcf total_chroms.vcf  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))    
