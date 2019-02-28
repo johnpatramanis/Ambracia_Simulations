@@ -5,28 +5,30 @@ class(density)
 b=rnorm(100,100,2)
 a=density(b,n=11)$y
 
-for (i in 56:99){
+setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
+
+for (i in 56:60){
 ############################################################
 #PARAMETERS input  
-  
+
 ParametersFile <- paste ("PARAMETERS_",i, sep = "", collapse = NULL)
-con  <- file(ComusFile, open = "r")
+con  <- file(ParametersFile, open = "r")
 
 ParametersList <- list()
-j=0
-while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0) 
-{
+j=1
+while ( TRUE ) {
+  line = readLines(con, n = 1)
+  if ( length(line) == 0 ) {
+    break
+  }
   
-  ParametersList[j] <- strsplit(oneLine,'\t')
+  ParametersList[j] <- strsplit(line,'\t')
   j <- j + 1
+}
 
-  
-    
-  
-} 
 close(con)  
-  
-  
+print(ParametersList) 
+
   
   
   
@@ -35,21 +37,23 @@ close(con)
   
 ############################################################  
 #COMUStats input
-  
+
 ComusFile <- paste ("COMUSTATS_",i, sep = "", collapse = NULL)
 con  <- file(ComusFile, open = "r")
 
 ComusList <- list()
-j=0
-while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0) 
-  {
+j=1
+while ( TRUE ) {
+  line = readLines(con, n = 1)
+  if ( length(line) == 0 ) {
+    break
+  }
   
-  ComusList[j] <- strsplit(oneLine,'\t')
+  ComusList[j] <- strsplit(line,'\t')
   j <- j + 1
-  
-  
-  } 
-close(con)
+}
+
+close(con)  
 
 
 
@@ -61,17 +65,22 @@ F3file <- paste ("f3FINAL_",i,".txt", sep= "", collapse = NULL)
 con  <- file(F3file, open = "r")
 
 F3list <- list()
-j=0
-while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0) 
-{
+j=1
+while ( TRUE ) {
+  line = readLines(con, n = 1)
+  if ( length(line) == 0 ) {
+    break
+  }
   
-  F3list[j] <- strsplit(oneLine,'\t')
+  F3list[j] <- strsplit(line,'\t')
   j <- j + 1
-  
-  
-} 
-close(con)
+}
 
+close(con) 
+
+f3dataframe=data.frame(matrix(as.numeric(unlist(F3list)),nrow=length(F3list),byrow=T))
+f3distribution=f3dataframe[,1]
+newf3distribution=density(f3distribution,n=11)$x
 
 
 
@@ -87,20 +96,24 @@ PCAfile <- paste ("PCA_CLUSTERING_",i, sep = "", collapse = NULL)
 con  <- file(PCAfile, open = "r")
 
 PCAlist <- list()
-j=0
-while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0) 
-{
+j=1
+while ( TRUE ) {
+  line = readLines(con, n = 1)
+  if ( length(line) == 0 ) {
+    break
+  }
   
-  PCAlist[j] <- strsplit(oneLine,'\t')
+  PCAlist[j] <- strsplit(line,'\t')
   j <- j + 1
-  
-  
-} 
-close(con)
+}
+
+close(con) 
 
 
+#write.table(t(as.data.frame(ParametersList[1])),file="FOR_ABC", quote=F,sep="\t",row.names=F,col.names=F)
 
 
+cat(paste(ParametersList[1],ParametersList[2],collapse=''),file='FOR_ABC',append=TRUE,sep="\n")
 
 
 }
