@@ -55,6 +55,16 @@ while ( TRUE ) {
 
 close(con)  
 
+comusdataframe=data.frame(matrix(as.numeric(unlist(ComusList[-1])),nrow=length(ComusList)-1,byrow=T))
+
+comusdistribution=comusdataframe[,1]
+newf3distribution=density(f3distribution,n=11)$x
+
+
+
+
+
+
 
 
 
