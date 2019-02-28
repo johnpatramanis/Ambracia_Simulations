@@ -2,10 +2,12 @@ plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4))
 class(density)
 
 
-b=rnorm(100,100,2)
-a=density(b,n=11)$y
+
 
 setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
+
+
+cat(paste('who_col','N_',collapse=''),file='FOR_ABC',append=TRUE,sep="\n")
 
 for (i in 56:60){
 
@@ -133,7 +135,7 @@ close(con)
 #write.table(t(as.data.frame(ParametersList[1])),file="FOR_ABC", quote=F,sep="\t",row.names=F,col.names=F)
 
 
-cat(paste(ParametersList[1],ParametersList[2],collapse=''),file='FOR_ABC',append=TRUE,sep="\n")
+cat(paste(ParametersList,collapse=''),file='FOR_ABC',append=TRUE,sep='\n')
 
 
 }
