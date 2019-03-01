@@ -440,9 +440,12 @@ for REPS in range(0,reps):
                 simulationfile='simulation-temporary'
             parfile=open('parfile.txt','w')
             
-            os.system('plink --bfile simulation  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
+            os.system('plink --bfile {}  --from {} --to {} --make-bed --out simulation'.format(simulationfile,segments[j],segments[j+1]))
             
-            
+            if os.path.isfile('simulation.bed'):
+                simulationfile='simulation'
+            else:
+                simulationfile='simulation-temporary'
             
             parfile.write('genotypename:    {}.bed\n'.format(simulationfile))
             parfile.write('snpname:         {}.bim\n'.format(simulationfile))
