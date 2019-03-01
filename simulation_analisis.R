@@ -7,7 +7,12 @@ class(density)
 setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
 
 
-cat(paste('who_col','N_',collapse=''),file='FOR_ABC',append=TRUE,sep="\n")
+#cat(paste('who_col','N_locals','N_metropolis','N_initial_colony','N_final_colony','r_locals','r_metropolis','r_colony','m_locals_metropolis0','m_locals_colony','m_metropolis_locals','m_metropolis_colony','m_colony_locals','m_colony_metropolis',collapse=' \t'),file='FOR_ABC',append=TRUE,sep="\t")
+
+#cat(paste(paste('f3',seq(1,11),sep='_'),collapse=' \t'),file='FOR_ABC',append=TRUE,sep="\t")
+
+
+
 
 for (i in 56:60){
 
@@ -30,7 +35,6 @@ while ( TRUE ) {
 }
 
 close(con)  
-print(ParametersList) 
 
   
   
@@ -128,11 +132,10 @@ while ( TRUE ) {
   PCAlist[j] <- strsplit(line,'\t')
   j <- j + 1
 }
-
+PCAlist=list(as.numeric(unlist(PCAlist)))
 close(con) 
 
 
-#write.table(t(as.data.frame(ParametersList[1])),file="FOR_ABC", quote=F,sep="\t",row.names=F,col.names=F)
 
 for (w in 1:length(ParametersList[[1]])){
 
@@ -142,9 +145,9 @@ for (w in 1:length(ParametersList[[2]])){
   
   cat(paste(ParametersList[[2]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
 }
-for (w in 1:length(PCAlist)){
+for (w in 1:length(PCAlist[[1]])){
   
-  cat(paste(PCAlist[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+  cat(paste(PCAlist[[1]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
 }
 for (w in 1:length(newf3distribution)){
   
@@ -166,7 +169,6 @@ for (c in 1:length(newcomusdistributions)){
   
   
 }
-
 
 
 
