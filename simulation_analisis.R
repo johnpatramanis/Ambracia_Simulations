@@ -134,8 +134,43 @@ close(con)
 
 #write.table(t(as.data.frame(ParametersList[1])),file="FOR_ABC", quote=F,sep="\t",row.names=F,col.names=F)
 
+for (w in 1:length(ParametersList[[1]])){
 
-cat(paste(ParametersList,collapse=''),file='FOR_ABC',append=TRUE,sep='\n')
+cat(paste(ParametersList[[1]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+}
+for (w in 1:length(ParametersList[[2]])){
+  
+  cat(paste(ParametersList[[2]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+}
+for (w in 1:length(PCAlist)){
+  
+  cat(paste(PCAlist[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+}
+for (w in 1:length(newf3distribution)){
+  
+  cat(paste(newf3distribution[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+}
+
+for (w in 1:length(newf3distribution)){
+  
+  cat(paste(newf3distribution[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+}
+
+
+for (c in 1:length(newcomusdistributions)){
+  
+  for (w in 1:length(newcomusdistributions[[c]])){
+    
+  cat(paste(newcomusdistributions[[c]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')  
+  }
+  
+  
+}
+
+
+
+
+cat('',file='FOR_ABC',append=TRUE,sep='\n')
 
 
 }
