@@ -516,7 +516,7 @@ for REPS in range(0,reps):
                     totalf3.append([float(line[4]),snpcounter])
             f3file.close()
             os.system('rm f3stat_{}'.format(REPS))
-            
+            print(totalf3)
     f3FINAL=open('f3FINAL_{}.txt'.format(REPS),'w')
     
     for line in totalf3:
