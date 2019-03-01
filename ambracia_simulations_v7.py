@@ -425,9 +425,9 @@ for REPS in range(0,reps):
         for y in VCFinfo[str(k)]:
             end=float(y[0])
             f3chunkscoutner+=1
-            if ((end-begin)>=1500000.0) or f3chunkscoutner>=3000:
+            if ((end-begin)>=14000000.0) or f3chunkscoutner>=3000:
                 segments.append(y[1])
-                begin=float(y[0])+100000.0
+                begin=float(y[0])+50000.0
                 f3chunkscoutner=0
         for j in range(0,len(segments)-1):    
                 
