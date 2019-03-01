@@ -37,7 +37,7 @@ while ( TRUE ) {
 close(con)  
 
   
-  
+migrations = list(unlist(stringr::str_extract_all(ParametersList[[2]],'([0-9]+.[0-9]+)'),recursive = TRUE))
   
   
   
@@ -141,9 +141,12 @@ for (w in 1:length(ParametersList[[1]])){
 
 cat(paste(ParametersList[[1]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
 }
-for (w in 1:length(ParametersList[[2]])){
-  
-  cat(paste(ParametersList[[2]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+for (w in 1:length(migrations[[1]])){
+  #for (c in 1:length(ParametersList[[2]][w])){
+    
+    cat(paste(migrations[[1]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
+    
+  #}
 }
 for (w in 1:length(PCAlist[[1]])){
   
@@ -154,10 +157,6 @@ for (w in 1:length(newf3distribution)){
   cat(paste(newf3distribution[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
 }
 
-for (w in 1:length(newf3distribution)){
-  
-  cat(paste(newf3distribution[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
-}
 
 
 for (c in 1:length(newcomusdistributions)){
