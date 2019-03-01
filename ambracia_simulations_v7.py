@@ -416,7 +416,7 @@ for REPS in range(0,reps):
 ########################################### 3 Pop Test ######################################################################################
     totalf3=[]
     f3chunkscoutner=0
-    os.system('plink --vcf total_chroms.vcf  --make-bed --out simulation'.format(segments[j],segments[j+1]))
+    os.system('plink --vcf total_chroms.vcf  --make-bed --out main_simulation')
     for k in range(1,22):
         begin=0
         end=0
@@ -432,12 +432,10 @@ for REPS in range(0,reps):
         for j in range(0,len(segments)-1):    
                 
         
-        
-        
-            if os.path.isfile('simulation.bed'):
-                simulationfile='simulation'
+            if os.path.isfile('main_simulation.bed'):
+                simulationfile='main_simulation'
             else:
-                simulationfile='simulation-temporary'
+                simulationfile='main_simulation-temporary'
             parfile=open('parfile.txt','w')
             
             os.system('plink --bfile {}  --from {} --to {} --make-bed --out simulation'.format(simulationfile,segments[j],segments[j+1]))
