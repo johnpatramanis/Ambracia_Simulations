@@ -439,7 +439,11 @@ for REPS in range(0,reps):
             else:
                 simulationfile='simulation-temporary'
             parfile=open('parfile.txt','w')
-        
+            
+            os.system('plink --bfile simulation  --from {} --to {} --make-bed --out simulation'.format(segments[j],segments[j+1]))
+            
+            
+            
             parfile.write('genotypename:    {}.bed\n'.format(simulationfile))
             parfile.write('snpname:         {}.bim\n'.format(simulationfile))
             parfile.write('indivname:       {}.fam\n'.format(simulationfile))
