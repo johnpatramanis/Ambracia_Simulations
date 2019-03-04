@@ -14,7 +14,7 @@ setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
 
 
 
-for (i in 56:60){
+for (i in 1:999){
 
 ############################################################
 #PARAMETERS input  
@@ -110,14 +110,16 @@ newf3distribution=list(rep('NA',11))
    
 }
 
-if (length(F3list)!=0){
+if (length(F3list)>1){
  
 f3dataframe=data.frame(matrix(as.numeric(unlist(F3list)),nrow=length(F3list),byrow=T))
 f3distribution=f3dataframe[,1]
 newf3distribution=density(f3distribution,n=11)$x
 }
 
-
+if (length(F3list)==1){
+  newf3distribution=list(rep(F3list[[1]],11))  
+}
 
 
 
