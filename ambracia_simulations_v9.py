@@ -383,11 +383,7 @@ for REPS in range(0,reps):
 ########################################### 3 Pop Test ######################################################################################
     totalf3=[]
     for k in range(1,(KOMMATIA-1)):
-
-        os.system('plink --vcf total_chroms.vcf  --chr-set {} --chr {} --make-bed --out simulation'.format(KOMMATIA,k)    
-        
-        
-        
+        os.system('plink --vcf total_chroms.vcf  --chr-set {} --chr {} --make-bed --out simulation'.format(KOMMATIA,k))    
         if os.path.isfile('simulation.bed'):
             simulationfile='simulation'
         else:
