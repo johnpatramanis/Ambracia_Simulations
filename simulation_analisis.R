@@ -14,7 +14,7 @@ setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
 
 
 
-for (i in 1:999){
+for (i in 65:85){
 
 ############################################################
 #PARAMETERS input  
@@ -107,6 +107,7 @@ close(con)
 
 if (length(F3list)==0){
 newf3distribution=list(rep('NA',11))
+flag=1
    
 }
 
@@ -115,10 +116,12 @@ if (length(F3list)>1){
 f3dataframe=data.frame(matrix(as.numeric(unlist(F3list)),nrow=length(F3list),byrow=T))
 f3distribution=f3dataframe[,1]
 newf3distribution=density(f3distribution,n=11)$x
+flag=0
 }
 
 if (length(F3list)==1){
-  newf3distribution=list(rep(F3list[[1]],11))  
+  newf3distribution=list(rep('NA',11))
+  flag=1
 }
 
 
@@ -166,10 +169,25 @@ for (w in 1:length(PCAlist[[1]])){
   
   cat(paste(PCAlist[[1]][w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
 }
+
+if (flag==0){
 for (w in 1:length(newf3distribution)){
   
   cat(paste(newf3distribution[w],'\t'),file='FOR_ABC',append=TRUE,sep='\t')
 }
+}
+if (flag==1){
+for (w in 1:length(newf3distribution)){
+  
+cat(paste(newf3distribution[[w]],'\t'),file='FOR_ABC',append=TRUE,sep='\t')  
+  
+}  
+  
+  
+  
+}
+
+
 
 
 
