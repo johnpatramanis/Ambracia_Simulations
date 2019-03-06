@@ -1,5 +1,5 @@
-plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4))
-class(density)
+#plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4))
+#class(density)
 
 
 
@@ -14,7 +14,7 @@ setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
 
 
 
-for (i in 65:85){
+for (i in 0:2499){
 
 ############################################################
 #PARAMETERS input  
@@ -207,4 +207,12 @@ cat('',file='FOR_ABC',append=TRUE,sep='\n')
 
 
 }
+
+system('grep -vwE "NA" FOR_ABC > FOR_ABC_CLEAN')
+
+
+
+
+
+
 
