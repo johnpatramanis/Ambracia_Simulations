@@ -4,7 +4,7 @@
 
 
 
-setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
+setwd("C:/Users/John/Desktop/Ambracia Sims/")
 
 
 #cat(paste('who_col','N_locals','N_metropolis','N_initial_colony','N_final_colony','r_locals','r_metropolis','r_colony','m_locals_metropolis0','m_locals_colony','m_metropolis_locals','m_metropolis_colony','m_colony_locals','m_colony_metropolis',collapse=' \t'),file='FOR_ABC',append=TRUE,sep="\t")
@@ -214,10 +214,12 @@ a <- read.table("FOR_ABC_CLEAN", h=F)
 
 dim(a)# check dims
 
-params <- a[-1,1:14]   #leave first row out for testing, take the rest
+params <- a[-1,2:14]   #leave first row out for testing, take the rest
 stats <- a[-1,-(1:14)] # << ,<<
+test <- a[1,-(1:14)]
+test_params <-a[1,2:14]
 
-
+dim(params)
 dim(stats) # check dims to make sure
 
 
@@ -229,5 +231,12 @@ names(stats) <- mynames.stats[1,-(1:14)]
 
 library(abc)
 
+mysample <- 1:14
 
+
+myabc <- abc(target=test[,1:6], param=params, sumstat=stats[,1:6], tol=0.5, method="loclinear", hcorr=TRUE)
+
+summary(myabc)
+
+trace(abc, edit=TRUE)
 
