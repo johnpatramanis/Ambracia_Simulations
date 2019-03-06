@@ -221,7 +221,7 @@ stats <- a[-1,-(1:14)] # << ,<<
 dim(stats) # check dims to make sure
 
 
-headers=read.table("HEADERS_FOR_ABC", h=F,sep='\t')
+headers=read.table("LABELS_FOR_ABC", h=F,sep='\t')
 head(heades)#check headers
 
 names(params) <- headers[1,1:14]
