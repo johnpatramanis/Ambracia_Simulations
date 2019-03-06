@@ -15,7 +15,7 @@ setwd("C:/Users/John/Desktop/Ambracia Sims/parameters")
 
 
 for (i in 0:2499){
-
+print(i)
 ############################################################
 #PARAMETERS input  
 
@@ -228,4 +228,6 @@ names(params) <- headers[1,1:14]
 names(stats) <- mynames.stats[1,-(1:14)]
 
 library(abc)
+
+
 
