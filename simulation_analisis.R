@@ -222,7 +222,7 @@ dim(stats) # check dims to make sure
 
 
 headers=read.table("LABELS_FOR_ABC", h=F,sep='\t')
-head(heades)#check headers
+head(headers)#check headers
 
 names(params) <- headers[1,1:14]
 names(stats) <- mynames.stats[1,-(1:14)]
