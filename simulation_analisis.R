@@ -210,9 +210,22 @@ cat('',file='FOR_ABC',append=TRUE,sep='\n')
 
 system('grep -vwE "NA" FOR_ABC > FOR_ABC_CLEAN')
 
+a <- read.table("FOR_ABC_CLEAN", h=F)
+
+dim(a)# check dims
+
+params <- a[-1,1:14]   #leave first row out for testing, take the rest
+stats <- a[-1,-(1:14)] # << ,<<
 
 
+dim(stats) # check dims to make sure
 
 
+headers=read.table("HEADERS_FOR_ABC", h=F,sep='\t')
+head(heades)#check headers
 
+names(params) <- headers[1,1:14]
+names(stats) <- mynames.stats[1,-(1:14)]
+
+library(abc)
 
