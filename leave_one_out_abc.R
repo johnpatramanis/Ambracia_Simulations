@@ -14,8 +14,8 @@ library(Metrics)
 
 a <- read.table("FOR_ABC_CLEAN", h=F)
 dim(a)
-predicted=list()
-actual=list()
+predicted=vector()
+actual=vector()
 mean_diff=vector()
 
 for (j in 1:dim(a)[1]){
@@ -49,10 +49,10 @@ mysample <- 1:248
 myabc <- abc(target=test[,mysample], param=params, sumstat=stats[,mysample], tol=0.1, method="ridge", hcorr=TRUE)
 
 sum=summary(myabc)
-predicted[[j]]=as.numeric(sum[4,4])
-actual[[j]]=as.numeric(test_params[4])
-mean_diff[j]=mae(actual[[j]],predicted[[j]])
+predicted[j]=as.numeric(sum[4,4])
+actual[j]=as.numeric(test_params[4])
+
 }
 
-print(mean(mean_diff))
-mean_diff
+print(mae(actual,predicted))
+
