@@ -18,6 +18,21 @@ predicted=vector()
 actual=vector()
 mean_diff=vector()
 
+#PLOTTING
+#plot(params[,7],stats[,7])
+#abline(lm(params[,7]~stats[,7]), col="red")
+#lines(lowess(params[,7],stats[,7]), col="blue")
+#scatter_plot <- ggplot(foot_height, aes(foot, height))
+#scatter_plot + geom_point() + labs(x = "foot length (cm)", y = "height (cm)") + geom_smooth(method="lm")
+
+
+
+
+
+
+
+
+
 for (j in 1:dim(a)[1]){
   
   
