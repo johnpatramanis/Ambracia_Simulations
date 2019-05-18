@@ -228,7 +228,7 @@ print(X_embedded.shape)
 
 
 
-PLOTING
+#PLOTING
 plt.figure(figsize=(100, 60))
 
 COLORPALLETE=get_colors(len(set(true_labels)))
