@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math 
 
 rep=1
-for rep in range(0,14):
+for rep in range(1,14):
     file=open('PREDICTIONS_{}'.format(rep),'r')
     actual=[]
     predicted=[]
@@ -12,7 +12,6 @@ for rep in range(0,14):
         actual.append(float(line[0]))
         predicted.append(float(line[1]))
 
-    print(len(actual),len(predicted))
     RMSE=[]
     MAPE=[]
 
@@ -30,16 +29,16 @@ for rep in range(0,14):
         top=(actual[k]-predicted[k])
         bot=(actual[k]+predicted[k])/2
         
-        MAPE.append(abs(top/bot) )
+        MAPE.append(abs(top/bot))
     MAPE=sum(MAPE)/len(MAPE)
 
     print('The Mean Absolute Percentage Error for parameter number {} is {} '.format(rep,MAPE))
 
 
 
-    plt.figure()
-    plt.xlabel('Prediction', fontdict=font)    
-    plt.ylabel('Actual', fontdict=font)    
-    plt.title('Parameter number {}'.format(rep), fontdict=font)    
-    plt.plot(x=predicted,y=actual,'.', line)  
-    plt.savefig('prediction_{}.png'.format(rep))
+    #plt.figure()
+    #plt.xlabel('Prediction', fontdict=font)    
+    #plt.ylabel('Actual', fontdict=font)    
+    #plt.title('Parameter number {}'.format(rep), fontdict=font)    
+    #plt.plot(x=predicted,y=actual,'.', line)  
+    #plt.savefig('prediction_{}.png'.format(rep))
