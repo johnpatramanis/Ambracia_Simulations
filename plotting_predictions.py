@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import math 
 
 rep=1
 file=open('PREDICTIONS_{}'.format(rep),'r')
@@ -8,16 +8,26 @@ actual=[]
 predicted=[]
 for line in file:
     line=line.strip().split()
-    actual.append(line[0])
-    predicted.append(line[1])
+    actual.append(float(line[0]))
+    predicted.append(float(line[1]))
 
+print(len(actual),len(predicted))
+RMSE=[]
+MAPE=[]
+
+for k in range(0,len(actual)):
+    RMSE.append((actual[k]-predicted[k])**2)
+
+ROOT=math.sqrt((sum(RMSE))/len(actual))
+RMSE=ROOT/(max(actual)-min(actual))
+print('Root Mean Squared Error is {} '.format(RMSE))
 
 font = {'family': 'serif',
         'color':  'blue',
         'weight': 'normal',
         'size': 14,
         }
-print(len(actual),len(predicted))
+
 plt.figure()
 plt.xlabel('Prediction', fontdict=font)    
 plt.ylabel('Actual', fontdict=font)    
