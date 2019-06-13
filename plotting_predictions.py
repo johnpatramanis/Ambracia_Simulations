@@ -15,12 +15,26 @@ print(len(actual),len(predicted))
 RMSE=[]
 MAPE=[]
 
+#Root Mean Squared Error 
 for k in range(0,len(actual)):
     RMSE.append((actual[k]-predicted[k])**2)
 
 ROOT=math.sqrt((sum(RMSE))/len(actual))
 RMSE=ROOT/(max(actual)-min(actual))
 print('Root Mean Squared Error is {} '.format(RMSE))
+
+#Mean Absolute Percentage Error
+
+for k in range(0,len(actual)):
+    top=(actual[k]-predited[k])
+    bot=(actual[k]+predited[k])/2
+    
+    MAPE.append(abs(top/bot) )
+MAPE=sum(MAPE)/len(MAPE)
+
+print('Mean Absolute Percentage Error is {} '.format(MAPE))
+
+
 
 font = {'family': 'serif',
         'color':  'blue',
